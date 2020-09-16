@@ -124,7 +124,7 @@ class DashBoard extends StatelessWidget {
                               Text('今日收益', style: TextStyle(color: Colors.white60),)
                             ],),
                             Container(
-                              padding: EdgeInsets.only(left: 20, top: 14, bottom: 14),
+                              padding: EdgeInsets.only(left: 25, top: 14, bottom: 14),
                               child: Text('\$0.00', style: TextStyle(color: Color.fromRGBO(244,135,0, 1), fontSize: 20, fontWeight: FontWeight.w600),)
                             )
                           ]
@@ -143,8 +143,8 @@ class DashBoard extends StatelessWidget {
                               Text('累计发电', style: TextStyle(color: Colors.white60),)
                             ],),
                             Container(
-                              padding: EdgeInsets.only(left: 20, top: 14, bottom: 14),
-                              child: Text('\$0.00', style: TextStyle(color: Color.fromRGBO(244,135,0, 1), fontSize: 20, fontWeight: FontWeight.w600),)
+                              padding: EdgeInsets.only(left: 25, top: 14, bottom: 14),
+                              child: Text('\$0.00', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),)
                             )
                           ]
                         ),
@@ -162,7 +162,7 @@ class DashBoard extends StatelessWidget {
                               Text('累计收益', style: TextStyle(color: Colors.white60),)
                             ],),
                             Container(
-                              padding: EdgeInsets.only(left: 20, top: 14, bottom: 14),
+                              padding: EdgeInsets.only(left: 25, top: 14, bottom: 14),
                               child: Text('\$0.00', style: TextStyle(color: Color.fromRGBO(244,135,0, 1), fontSize: 20, fontWeight: FontWeight.w600),)
                             )
                           ]
@@ -179,8 +179,8 @@ class DashBoard extends StatelessWidget {
                               Text('系统容量', style: TextStyle(color: Colors.white60),)
                             ],),
                             Container(
-                              padding: EdgeInsets.only(left: 20, top: 14, bottom: 14),
-                              child: Text('\$0.00', style: TextStyle(color: Color.fromRGBO(244,135,0, 1), fontSize: 20, fontWeight: FontWeight.w600),)
+                              padding: EdgeInsets.only(left: 25, top: 14, bottom: 14),
+                              child: Text('\$0.00', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),)
                             )
                           ]
                         ),

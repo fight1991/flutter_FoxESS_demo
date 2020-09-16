@@ -9,7 +9,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FoxEss',
       home: Home(),
-      theme: ThemeData(primaryColor: Color.fromRGBO(4,60,97, 1)),
+      theme: ThemeData(
+        primaryColor: Color.fromRGBO(4,60,97, 1),
+        scaffoldBackgroundColor: Color.lerp(Color.fromRGBO(0,67,107,1), Color.fromRGBO(2,36,59,1), 0.5)
+      ),
     );
   }
 }
