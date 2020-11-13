@@ -24,6 +24,7 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.0
       ),
+      resizeToAvoidBottomPadding: false,
       body: Column(
         children: <Widget>[
           Align(
