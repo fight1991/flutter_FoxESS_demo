@@ -57,30 +57,77 @@ class Home extends StatelessWidget {
                     top: 0.0,
                     right: 20.0,
                     child: Container(
-                      child: Column(children: <Widget>[
-                        TextField(
-                          decoration: InputDecoration(
-                              labelText: "用户名",
-                              hintText: "用户名或邮箱",
-                              prefixIcon: Icon(Icons.person)
+                      padding: EdgeInsets.only(left: 20.0, top: 50.0, right: 20.0, bottom: 40.0),
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text('ACCOUNT', style: TextStyle(color: Colors.white)),
+                              Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                decoration: BoxDecoration(
+                                  color: Color(0xffCBDBEF),
+                                  borderRadius: BorderRadius.all(Radius.circular(18.0))
+                                ),
+                                child: TextField(
+                                  style: TextStyle(color: Colors.black),
+                                  decoration: InputDecoration(
+                                    focusedBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(left: 10.0),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                    )
+                                  ),
+                                ),
+                              ),
+                            ]
                           ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                              labelText: "用户名",
-                              hintText: "用户名或邮箱",
-                              prefixIcon: Icon(Icons.person)
+                          SizedBox(width: double.infinity, height: 40.0,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text('PASSWORD', style: TextStyle(color: Colors.white)),
+                              Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                decoration: BoxDecoration(
+                                  color: Color(0xffCBDBEF),
+                                  borderRadius: BorderRadius.all(Radius.circular(18.0))
+                                ),
+                                child: TextField(
+                                  style: TextStyle(color: Colors.black),
+                                  decoration: InputDecoration(
+                                    focusedBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(left: 10.0),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                    )
+                                  ),
+                                ),
+                              ),
+                            ]
                           ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                              labelText: "密码",
-                              hintText: "您的登录密码",
-                              prefixIcon: Icon(Icons.lock)
-                          ),
-                          obscureText: true,
-                        ),
-                      ],),
+                          SizedBox(width: double.infinity, height: 40.0,),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              padding: EdgeInsets.only(top:10.0, right:20.0, bottom:10.0, left:20.0),
+                              decoration: BoxDecoration(
+                                color: Color(0xff94C5FF),
+                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                boxShadow: [BoxShadow(color: Colors.black54, offset: Offset(5.0, 5.0), blurRadius: 10.0, spreadRadius: 2.0)]
+                              ),
+                              child: Image(
+                                image: AssetImage("images/enter.png"),
+                                fit: BoxFit.cover,
+                                width: 45.0,
+                              )
+                            )
+                          )
+                        ],
+                      ),
                       width: 280.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
