@@ -1,64 +1,13 @@
 import "package:flutter/material.dart";
-
 class Overview extends StatefulWidget {
   @override
   _Overview createState() => _Overview();
 }
-class _Overview extends State<Overview> with SingleTickerProviderStateMixin {
-  List tabs = ["OVERVIEW", "STATION", "ME"];
-  TabController _tabController;
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this);
-  }
+class _Overview extends State<Overview> {
   @override
   Widget build(BuildContext context) {
-    TextStyle _appBarTextColor = Theme.of(context).textTheme.bodyText2;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Text('Overview', style: _appBarTextColor),
-        centerTitle: true,
-        backgroundColor: Color(0xfff6f6f6),
-        leading: Icon(Icons.arrow_back_ios, color: _appBarTextColor.color,),
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Icon(Icons.location_on, color: _appBarTextColor.color,),
-          )
-        ],
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          Text('OVERVIEW'),
-          Text('STATION'),
-          Text('ME'),
-        ]
-      ),
-      bottomNavigationBar: Container(
-        height: 50.0,
-        color: Colors.white,
-        child: TabBar(
-          controller: _tabController,
-          labelColor: _appBarTextColor.color,
-          indicatorColor: Colors.transparent,
-          unselectedLabelColor: Colors.black26,
-          unselectedLabelStyle: TextStyle(backgroundColor: Colors.transparent),
-          labelStyle: TextStyle(height: 1, fontSize: 14),
-          tabs: tabs.map((item) => Tab(
-            text: item
-          )).toList()
-        ),
-      )
-      // bottomNavigationBar: BottomAppBar(
-      //   color: Colors.white,
-      //   child: Row(
-      //     children: [],
-      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //   ),
-      // ),
+      body: Center(child: Text('overview'),)
     );
   }
 }
