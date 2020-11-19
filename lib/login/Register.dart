@@ -3,7 +3,7 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(unselectedWidgetColor: Colors.white),
+      data: ThemeData(unselectedWidgetColor: Colors.white), // 单选框颜色
       child: Column(
         children: <Widget>[
           Container(

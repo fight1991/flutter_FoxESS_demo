@@ -1,5 +1,17 @@
 import "package:flutter/material.dart";
-class Overview extends StatelessWidget {
+
+class Overview extends StatefulWidget {
+  @override
+  _Overview createState() => _Overview();
+}
+class _Overview extends State<Overview> with SingleTickerProviderStateMixin {
+  List tabs = ["OVERVIEW", "STATION", "ME"];
+  TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: tabs.length, vsync: this);
+  }
   @override
   Widget build(BuildContext context) {
     TextStyle _appBarTextColor = Theme.of(context).textTheme.bodyText2;
@@ -18,6 +30,7 @@ class Overview extends StatelessWidget {
         ],
       ),
       body: TabBarView(
+        controller: _tabController,
         children: <Widget>[
           Text('OVERVIEW'),
           Text('STATION'),
@@ -26,20 +39,26 @@ class Overview extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         height: 50.0,
-        color: Colors.black12,
+        color: Colors.white,
         child: TabBar(
+          controller: _tabController,
           labelColor: _appBarTextColor.color,
-          labelStyle: TextStyle(height: 0, fontSize: 10),
-          tabs: <Widget>[
-            Tab(icon: Icon(Icons.add), text: 'OVERVIEW',),
-            Tab(icon: Icon(Icons.add), text: 'OVERVIEW',),
-            Tab(icon: Icon(Icons.add), text: 'OVERVIEW',),
-
-            // Tab(text: 'STATION',),
-            // Tab(text: 'ME',)
-          ]
+          indicatorColor: Colors.transparent,
+          unselectedLabelColor: Colors.black26,
+          unselectedLabelStyle: TextStyle(backgroundColor: Colors.transparent),
+          labelStyle: TextStyle(height: 1, fontSize: 14),
+          tabs: tabs.map((item) => Tab(
+            text: item
+          )).toList()
         ),
       )
+      // bottomNavigationBar: BottomAppBar(
+      //   color: Colors.white,
+      //   child: Row(
+      //     children: [],
+      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //   ),
+      // ),
     );
   }
 }
