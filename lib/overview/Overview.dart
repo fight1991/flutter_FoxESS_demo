@@ -17,13 +17,26 @@ class Overview extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text('OVERVIEW'),
-            Text('STATION'),
-            Text('ME')
+      body: TabBarView(
+        children: <Widget>[
+          Text('OVERVIEW'),
+          Text('STATION'),
+          Text('ME'),
+        ]
+      ),
+      bottomNavigationBar: Container(
+        height: 50.0,
+        color: Colors.black12,
+        child: TabBar(
+          labelColor: _appBarTextColor.color,
+          labelStyle: TextStyle(height: 0, fontSize: 10),
+          tabs: <Widget>[
+            Tab(icon: Icon(Icons.add), text: 'OVERVIEW',),
+            Tab(icon: Icon(Icons.add), text: 'OVERVIEW',),
+            Tab(icon: Icon(Icons.add), text: 'OVERVIEW',),
+
+            // Tab(text: 'STATION',),
+            // Tab(text: 'ME',)
           ]
         ),
       )
