@@ -1,9 +1,16 @@
 import "package:flutter/material.dart";
+import 'package:flutter_swiper/flutter_swiper.dart';
 class Overview extends StatefulWidget {
   @override
   _Overview createState() => _Overview();
 }
 class _Overview extends State<Overview> {
+  List<Map> nums = [
+    { 'item': 'Total', 'num': 33},
+    { 'item': 'Normal', 'num': 3},
+    { 'item': 'Abnamal', 'num': 13},
+    { 'item': 'Online', 'num': 5}
+  ];
   @override
   Widget build(BuildContext context) {
     TextStyle _appBarTextColor = Theme.of(context).textTheme.bodyText2;
@@ -68,9 +75,88 @@ class _Overview extends State<Overview> {
                   ),
                 )
               ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 30.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  SimpleListTile(
+                    leading: Icon(Icons.settings, color: _appBarTextColor.color,),
+                    title: Text('TOTAL ENERGY(kWh)'),
+                    trailing: Text('233311.5',maxLines: 4, overflow: TextOverflow.ellipsis),
+                  ),
+                  SimpleListTile(
+                    leading: Icon(Icons.settings, color: _appBarTextColor.color,),
+                    title: Text('TOTAL ENERGY(kWh)'),
+                    trailing: Text('2342.5'),
+                  ),
+                ],
+              ),
+            ),
+            Divider(color: _appBarTextColor.color, height: 20.0, indent: 30.0, endIndent: 30.0,),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [Color(0xffF6F6F6), Color(0xffE3E3E3)])
+              ),
+              width: 350.0,
+              height: 140.0,
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+              child: Swiper(
+                itemCount: nums.length,
+                pagination: SwiperPagination(),
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(nums[index]['item'], style: TextStyle(fontSize: 32.0),),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(nums[index]['num'].toString(), style: TextStyle(fontSize: 56.0),),
+                        )
+                      ],
+                    ),
+                  );
+                }
+              ),
             )
           ],
         ),
+      )
+    );
+  }
+}
+class SimpleListTile extends StatelessWidget {
+  final Widget leading;
+  final Widget title;
+  final Widget trailing;
+  SimpleListTile({
+    Key key,
+    this.leading,
+    this.title,
+    this.trailing
+  }): super(key: key);
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              leading,
+              SizedBox(width: 10.0,),
+              title
+            ],
+          ),
+          Container(child: trailing, width: 90.0,)
+        ],
       )
     );
   }

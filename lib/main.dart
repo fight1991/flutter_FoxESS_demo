@@ -19,8 +19,9 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent, // 点击时的高亮效果设置为透明
         highlightColor: Colors.transparent, // 长按时的扩散效果设置为透明
         textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.white60),
-          bodyText2: TextStyle(color: Color(0xff3390FF), fontSize: 20.0)
+          subtitle1: TextStyle(color: Color(0xff3390FF), fontSize: 18.0),
+          bodyText1: TextStyle(color: Color(0xff3390FF), fontSize: 18.0),
+          bodyText2: TextStyle(color: Color(0xff3390FF), fontSize: 18.0),
         ),
         scaffoldBackgroundColor: Colors.white
       ),
