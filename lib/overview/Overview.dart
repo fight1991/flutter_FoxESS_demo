@@ -78,7 +78,7 @@ class _Overview extends State<Overview> {
             ),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 30.0),
+              padding: EdgeInsets.all(25.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
@@ -95,17 +95,23 @@ class _Overview extends State<Overview> {
                 ],
               ),
             ),
-            Divider(color: _appBarTextColor.color, height: 20.0, indent: 30.0, endIndent: 30.0,),
+            Divider(color: _appBarTextColor.color, indent: 30.0, endIndent: 30.0,),
             Container(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
               decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [Color(0xffF6F6F6), Color(0xffE3E3E3)])
+                gradient: LinearGradient(colors: [Color(0xffF6F6F6), Color(0xffE3E3E3)]),
+                borderRadius: BorderRadius.circular(8.0)
               ),
               width: 350.0,
               height: 140.0,
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
               child: Swiper(
                 itemCount: nums.length,
-                pagination: SwiperPagination(),
+                pagination: SwiperPagination(
+                  builder: DotSwiperPaginationBuilder(
+                    color: Colors.white,
+                    activeColor: _appBarTextColor.color,
+                  )
+                ),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     child: Column(
@@ -117,7 +123,7 @@ class _Overview extends State<Overview> {
                         ),
                         Align(
                           alignment: Alignment.bottomRight,
-                          child: Text(nums[index]['num'].toString(), style: TextStyle(fontSize: 56.0),),
+                          child: Text(nums[index]['num'].toString(), style: TextStyle(fontSize: 56.0, color: Colors.white, shadows: [Shadow(color: Colors.black54, offset: Offset(2.0, 1.0))]),),
                         )
                       ],
                     ),
