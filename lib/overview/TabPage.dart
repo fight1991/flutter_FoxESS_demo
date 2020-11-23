@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "./My.dart";
-import "./Plant.dart";
+import 'Station.dart';
 import "Overview.dart";
 class TabPage extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Overview(),
-          Plant(),
+          Station(),
           My()
         ]
       ),
