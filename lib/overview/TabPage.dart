@@ -20,6 +20,7 @@ class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
     return Scaffold(
       body: TabBarView(
         controller: _tabController,
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Overview(),
           Plant(),
