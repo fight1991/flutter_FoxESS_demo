@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           subtitle1: TextStyle(color: Color(0xff3390FF), fontSize: 18.0),
           bodyText1: TextStyle(color: Color(0xff3390FF), fontSize: 18.0),
-          bodyText2: TextStyle(color: Color(0xff3390FF), fontSize: 18.0),
+          bodyText2: TextStyle(color: Color(0xff3390FF), fontSize: 14.0),
         ),
         scaffoldBackgroundColor: Colors.white
       ),
