@@ -6,6 +6,13 @@ class My extends StatefulWidget {
 class _My extends State<My> {
   @override
   Widget build(BuildContext context) {
-    return Text('my');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My'),
+        centerTitle: true,
+        leading: Text(''),
+      ),
+      body: Center(child: Text('我的页面'),),
+    );
   }
 }
