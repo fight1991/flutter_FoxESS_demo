@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import "./login/Login.dart";
-import "./login/Test.dart";
-import 'overview/TabPage.dart';
+import "./pages/login/Login.dart";
+import "./pages/login/Test.dart";
+import "./pages/overview/TabPage.dart";
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
