@@ -33,6 +33,7 @@ class _Station extends State<Station> with SingleTickerProviderStateMixin {
             unselectedLabelColor: Colors.black26,
             controller: _tabController,
             tabs: tabs.map((v) => Tab(text: v)).toList(),
+            onTap: (int index){print(tabs[index]);},
           ),
         ),
         body: TabBarView(
