@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
 import '../../common/MyCircularProgress.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 class Overview extends StatefulWidget {
   @override
   _Overview createState() => _Overview();
 }
 class _Overview extends State<Overview> {
+  List swiperList = ['正常', '不正常', '离线'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +22,12 @@ class _Overview extends State<Overview> {
           )
         ],
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
           currentPower(),
-          todayAndTotalPower()
+          todayAndTotalPower(),
+          lineBottom(),
+          mySwiper(swiperList)
         ]
       )
     );
@@ -87,14 +91,16 @@ class _Overview extends State<Overview> {
           Row(
             children: <Widget>[
               Icon(Icons.power),
-              Text('今日功率'),
+              Text('今日功率(kW)'),
+              SizedBox(width: 10.0,),
               Text('5555.55')
             ],
           ),
           Row(
             children: <Widget>[
               Icon(Icons.power),
-              Text('总功率'),
+              Text('总功率(kW)'),
+              SizedBox(width: 10.0,),
               Text('2255.55')
             ],
           )
@@ -104,8 +110,28 @@ class _Overview extends State<Overview> {
   }
   // 下划线
   Widget lineBottom () {
+    return Divider(color: Colors.blue,thickness: 2.0, indent: 40.0, endIndent: 40.0,);
+  }
+  // 轮播图
+  Widget mySwiper (List list) {
     return Container(
-      padding: EdgeInsets.only(left: 40.0, top: 0.0, right: 40.0, bottom: 20.0),
+      width: 500.0,
+      height: 200.0,
+      padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.grey,
+            ),
+            child: Text(index.toString()),
+          );
+        },
+        itemCount: list.length,
+        outer: true,
+        pagination: SwiperPagination()
+      ),
     );
   }
 }
