@@ -6,7 +6,7 @@ class Overview extends StatefulWidget {
   _Overview createState() => _Overview();
 }
 class _Overview extends State<Overview> {
-  List swiperList = [
+  List<Map> swiperList = [
     {'item': '全部', 'num': 134},
     {'item': '正常', 'num': 123},
     {'item': '不正常', 'num': 3},
@@ -126,6 +126,7 @@ class _Overview extends State<Overview> {
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
           return Container(
+            padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(colors: [Color(0xffF6F6F6), Color(0xffE3E3E3)]),
               borderRadius: BorderRadius.circular(8.0),
@@ -135,11 +136,11 @@ class _Overview extends State<Overview> {
               children: <Widget>[
                 Align(
                   alignment: Alignment.topLeft,
-                  child: Text(list[index]['item'], style: TextStyle(fontSize: 32.0),),
+                  child: Text(list[index]['item'], style: TextStyle(fontSize: 30.0),),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: Text(list[index]['num'].toString(), style: TextStyle(fontSize: 56.0, color: Colors.white, shadows: [Shadow(color: Colors.black54, offset: Offset(2.0, 1.0))]),),
+                  child: Text(list[index]['num'].toString(), style: TextStyle(fontSize: 52.0, color: Colors.white, shadows: [Shadow(color: Colors.black54, offset: Offset(2.0, 1.0))]),),
                 )
               ],
             ),
