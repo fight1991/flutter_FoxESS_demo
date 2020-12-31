@@ -1,195 +1,111 @@
 import "package:flutter/material.dart";
-import 'package:flutter_swiper/flutter_swiper.dart';
+import '../../common/MyCircularProgress.dart';
 class Overview extends StatefulWidget {
   @override
   _Overview createState() => _Overview();
 }
 class _Overview extends State<Overview> {
-  List<Map> nums = [
-    { 'item': 'Total', 'num': 33},
-    { 'item': 'Normal', 'num': 3},
-    { 'item': 'Abnamal', 'num': 13},
-    { 'item': 'Online', 'num': 5}
-  ];
   @override
   Widget build(BuildContext context) {
-    TextStyle _appBarTextColor = Theme.of(context).textTheme.bodyText2;
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        title: Text('Overview', style: _appBarTextColor),
+        title: Text('总览'),
+        elevation: 10.0,
         centerTitle: true,
-        backgroundColor: Color(0xfff6f6f6),
-        leading: Icon(Icons.arrow_back_ios, color: _appBarTextColor.color,),
+        leading: Text(''),
         actions: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Icon(Icons.location_on, color: _appBarTextColor.color,),
+            padding: EdgeInsets.symmetric(horizontal:15.0),
+            child: Icon(Icons.map),
           )
         ],
       ),
-      body: ConstrainedBox(
-        constraints: BoxConstraints.expand(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              CircleProgress(),
-              TodayPower(),
-              Divider(color: _appBarTextColor.color, indent: 30.0, endIndent: 30.0,),
-              MySwiper(nums:nums)
-            ],
-          ),
-        )
+      body: Column(
+        children: <Widget>[
+          currentPower(),
+          todayAndTotalPower()
+        ]
       )
     );
   }
-}
-// 环形进度表盘
-class CircleProgress extends StatelessWidget {
-  Widget build(BuildContext context) {
+  // 当前功率
+  Widget currentPower () {
     return Container(
       width: double.infinity,
-      height: 260.0,
+      height: 300.0,
       decoration: BoxDecoration(
-        color: Color(0xfff6f6f6),
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(130.0)),
-        boxShadow: [BoxShadow(color: Colors.black26, offset: Offset(-2.0, 0.0), blurRadius: 12.0, spreadRadius: 0.0)]
-      ),
-      child: Center(
-        child: Container(
-          width: 200.0,
-          height: 200.0,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(100.0),
-            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 12.0)]
-          ),
-          child: Stack(
-            alignment:Alignment.center,
-            children:  <Widget>[
-              CircleAvatar(
-                radius: 75.0,
-                backgroundColor: Colors.black26,
-              ),
-              CircleAvatar(
-                radius: 65.0,
-                backgroundColor: Colors.white,
-                child: Center(child: Text('69.60', style: TextStyle(fontSize: 30.0),),),
-              ),
-              SizedBox(
-                height: 175,
-                width: 175,
-                child: CircularProgressIndicator(
-                  strokeWidth: 15.0,
-                  backgroundColor: Colors.white,
-                  valueColor: AlwaysStoppedAnimation(Colors.blue),
-                  value: .7,
-                ),
-              ),
-            ]
-          ),
+        boxShadow: [BoxShadow(
+          color: Colors.black26,
+          offset: Offset(-2.0, 0.0),
+          blurRadius: 4.0,
+          spreadRadius: 1.0
+        )],
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(150.0)),
+        gradient: LinearGradient(
+          colors: [Color(0xfff0f0f0), Color(0xffd9d9d9)],
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight
         )
       ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          // 进度条
+          MyCircularProgress(
+            radius: 125.0, // 圆的半径
+            backgroundColor: Colors.white,
+            strokeWidth: 12.0,
+            colors: [Colors.blue, Colors.blue],
+            value: .5,
+          ),
+          Container(
+            alignment: Alignment.center,
+            width: 200.0,
+            height: 200.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('23.00', style: TextStyle(fontSize: 28.0,fontWeight: FontWeight.bold)),
+              Text('当前功率(kw)')
+            ]
+          )
+        ],
+      ),
     );
   }
-}
-// 今日功率和总功率
-class TodayPower extends StatelessWidget {
-  Widget build(BuildContext context) {
-    TextStyle _appBarTextColor = Theme.of(context).textTheme.bodyText2;
+  //今日功率和总功率
+  Widget todayAndTotalPower () {
     return Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            TodayPowerItem(
-              leading: Icon(Icons.settings, color: _appBarTextColor.color,),
-              title: Text('TOTAL ENERGY(kWh)'),
-              trailing: Text('233311.5',maxLines: 4, overflow: TextOverflow.ellipsis),
-            ),
-            TodayPowerItem(
-              leading: Icon(Icons.settings, color: _appBarTextColor.color,),
-              title: Text('TOTAL ENERGY(kWh)'),
-              trailing: Text('2342.5'),
-            ),
-          ],
-        ),
-      );
-  }
-}
-class TodayPowerItem extends StatelessWidget {
-  final Widget leading;
-  final Widget title;
-  final Widget trailing;
-  TodayPowerItem({
-    Key key,
-    this.leading,
-    this.title,
-    this.trailing
-  }): super(key: key);
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: EdgeInsets.only(left: 40.0, top: 20.0, right: 40.0, bottom: 20.0),
+      child: Column(
         children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              leading,
-              SizedBox(width: 10.0,),
-              title
+              Icon(Icons.power),
+              Text('今日功率'),
+              Text('5555.55')
             ],
           ),
-          Container(child: trailing, width: 90.0,)
-        ],
-      )
+          Row(
+            children: <Widget>[
+              Icon(Icons.power),
+              Text('总功率'),
+              Text('2255.55')
+            ],
+          )
+        ]
+      ),
     );
   }
-}
-// 轮播图
-class MySwiper extends StatelessWidget {
-  final nums;
-  MySwiper({Key key, this.nums}):super(key: key);
-  Widget build(BuildContext context) {
-    TextStyle _appBarTextColor = Theme.of(context).textTheme.bodyText2;
+  // 下划线
+  Widget lineBottom () {
     return Container(
-      margin: EdgeInsets.only(top: 20.0),
-      width: 350.0,
-      height: 180.0,
-      child: Swiper(
-        outer: true,
-        itemCount: nums.length,
-        pagination: SwiperPagination(
-          builder: DotSwiperPaginationBuilder(
-            color: Colors.black26,
-            activeColor: _appBarTextColor.color,
-          )
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Color(0xffF6F6F6), Color(0xffE3E3E3)]),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(nums[index]['item'], style: TextStyle(fontSize: 32.0),),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(nums[index]['num'].toString(), style: TextStyle(fontSize: 56.0, color: Colors.white, shadows: [Shadow(color: Colors.black54, offset: Offset(2.0, 1.0))]),),
-                )
-              ],
-            ),
-          );
-        }
-      ),
+      padding: EdgeInsets.only(left: 40.0, top: 0.0, right: 40.0, bottom: 20.0),
     );
   }
 }

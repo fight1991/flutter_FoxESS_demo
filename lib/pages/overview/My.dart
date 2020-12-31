@@ -8,11 +8,11 @@ class _My extends State<My> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My'),
+        title: Text('我的'),
+        elevation: 0.0,
         centerTitle: true,
         leading: Text(''),
       ),
-      body: Center(child: Text('我的页面'),),
     );
   }
 }

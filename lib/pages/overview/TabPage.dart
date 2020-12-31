@@ -1,54 +1,62 @@
 import "package:flutter/material.dart";
+import "./Overview.dart";
+import "./Station.dart";
 import "./My.dart";
-import 'Station.dart';
-import "Overview.dart";
 class TabPage extends StatefulWidget {
-  @override
-  _TabPage createState() => _TabPage();
+ @override
+ _TabPage createState() => _TabPage();
 }
-class _TabPage extends State<TabPage> with SingleTickerProviderStateMixin {
-  List tabs = ["OVERVIEW", "STATION", "ME"];
-  TabController _tabController;
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this);
-  }
+class _TabPage extends State<TabPage> {
+  int _selectedIndex = 0;
+  Widget currentPage = Overview();
   @override
   Widget build(BuildContext context) {
-    TextStyle _appBarTextColor = Theme.of(context).textTheme.bodyText2;
     return Scaffold(
-      body: TabBarView(
-        controller: _tabController,
-        physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          Overview(),
-          Station(),
-          My()
-        ]
-      ),
-      bottomNavigationBar: Container(
-        height: 50.0,
-        color: Colors.white,
-        child: TabBar(
-          controller: _tabController,
-          labelColor: _appBarTextColor.color,
-          indicatorColor: Colors.transparent,
-          unselectedLabelColor: Colors.black26,
-          unselectedLabelStyle: TextStyle(backgroundColor: Colors.transparent),
-          labelStyle: TextStyle(height: 1, fontSize: 14),
-          tabs: tabs.map((item) => Tab(
-            text: item
-          )).toList()
+      body: Container(
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: <Widget>[
+            Overview(),
+            Station(),
+            My()
+          ],
         ),
-      )
-      // bottomNavigationBar: BottomAppBar(
-      //   color: Colors.white,
-      //   child: Row(
-      //     children: [],
-      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //   ),
-      // ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('总览')),
+          BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('我的电站')),
+          BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('我的')),
+        ],
+        fixedColor: Color(0xff3390FF),
+        onTap: _onBottomItemTap,
+      ),
     );
+  }
+  Widget getCurrentBottomTabPage (index) {
+    var currentPage;
+    switch (index) {
+      case 0:
+        currentPage = Overview();
+        break;
+      case 1:
+        currentPage = Station();
+        break;
+      case 2:
+        currentPage = My();
+        break;
+      default:
+        currentPage = null;
+       break;
+    }
+    return currentPage;
+  }
+  void _onBottomItemTap (int index) {
+    setState((){
+      _selectedIndex = index;
+      currentPage = getCurrentBottomTabPage(index);
+    });
+    print(index);
   }
 }
