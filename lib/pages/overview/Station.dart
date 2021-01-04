@@ -21,10 +21,11 @@ class _Station extends State<Station> with SingleTickerProviderStateMixin{
         centerTitle: true,
         leading: Text(''),
         actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal:15.0),
-            child: Icon(Icons.add),
-          )
+          IconButton(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            icon: Icon(Icons.add),
+            onPressed: () {},
+          ),
         ],
         bottom: TabBar(
           tabs: tabs.map((v) => Text(v)).toList(),

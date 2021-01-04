@@ -25,7 +25,7 @@ class _TabPage extends State<TabPage> {
   // 搜索框
   Widget searchInput () {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: EdgeInsets.only(bottom: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         // boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0,1.0), spreadRadius: 2.0, blurRadius: 2.0)],
@@ -78,7 +78,7 @@ class _TabPage extends State<TabPage> {
                 Text('2010/11/24 03:39', style: TextStyle(fontSize: 12.0, color: Colors.black45),)
               ],
             ),
-            Divider(color: Colors.black12,),
+            Divider(color: Colors.black38,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
