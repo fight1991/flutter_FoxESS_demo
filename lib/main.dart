@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "./pages/login/Login.dart";
 import "./pages/login/Test.dart";
-import "./pages/overview/TabPage.dart";
+import './pages/overview/Index.dart';
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Login(),
         '/test': (context) => Test(),
-        '/overview': (context) => TabPage()
+        '/overview': (context) => Index()
       },
       theme: ThemeData(
         primaryColor: Colors.white,

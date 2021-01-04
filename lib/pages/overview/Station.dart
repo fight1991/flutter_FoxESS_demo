@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "./TabPage.dart";
 class Station extends StatefulWidget {
   @override
   _Station createState() => _Station();
@@ -33,10 +34,10 @@ class _Station extends State<Station> with SingleTickerProviderStateMixin{
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          Text('1'),
-          Text('2'),
-          Text('3'),
-          Text('4')
+          TabPage(type: 1),
+          TabPage(type: 2),
+          TabPage(type: 3),
+          TabPage(type: 4),
         ],
       ),
     );
