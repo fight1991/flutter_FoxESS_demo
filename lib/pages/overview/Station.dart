@@ -24,7 +24,9 @@ class _Station extends State<Station> with SingleTickerProviderStateMixin{
           IconButton(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/addStation');
+            },
           ),
         ],
         bottom: TabBar(

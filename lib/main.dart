@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "./pages/login/Login.dart";
 import "./pages/login/Test.dart";
 import './pages/overview/Index.dart';
+import './pages/overview/Add_station.dart';
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
@@ -9,13 +10,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FoxESS',
       initialRoute: '/overview',
+      debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => Login(),
         '/test': (context) => Test(),
-        '/overview': (context) => Index()
+        '/overview': (context) => Index(),
+        '/addStation': (context) => AddStation()
       },
       theme: ThemeData(
-        primaryColor: Colors.white,
+        // primaryColor: Colors.white,
         splashColor: Colors.transparent, // 点击时的高亮效果设置为透明
         highlightColor: Colors.transparent, // 长按时的扩散效果设置为透明
         textTheme: TextTheme(
