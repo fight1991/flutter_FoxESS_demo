@@ -3,6 +3,7 @@ import "./pages/login/Login.dart";
 import "./pages/login/Test.dart";
 import './pages/overview/Index.dart';
 import './pages/overview/Add_station.dart';
+import './pages/station/StationTab.dart';
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => Login(),
         '/test': (context) => Test(),
         '/overview': (context) => Index(),
-        '/addStation': (context) => AddStation()
+        '/addStation': (context) => AddStation(),
+        '/stationTab': (context) => StationTab()
       },
       theme: ThemeData(
         // primaryColor: Colors.white,
