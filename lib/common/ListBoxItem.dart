@@ -29,12 +29,12 @@ class ListBoxItem extends StatelessWidget {
         elevation: 1.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
         child: Container(
-          padding: EdgeInsets.only(left: 10.0, top: 0.0, right: 10.0, bottom: 10.0),
+          padding: EdgeInsets.all(10.0),
           child: Column(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   headLeftIcon,
                   headRightIcon

@@ -69,6 +69,7 @@ class _PlantList extends State<PlantList> {
         splashColor: Colors.grey[100],
         icon: Icon(Icons.more_horiz),
         padding: EdgeInsets.symmetric(horizontal: 10.0),
+        alignment: Alignment.topCenter,
         onPressed: () async{
           var opType = await showStationEditDialog(id);
           if (opType == 1) {

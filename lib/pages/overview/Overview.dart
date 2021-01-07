@@ -38,10 +38,10 @@ class _Overview extends State<Overview> {
       )
     );
   }
-  //今日功率和总功率
+  //所有电站今日功率和总功率
   Widget todayAndTotalPower () {
     return Container(
-      padding: EdgeInsets.only(left: 40.0, top: 20.0, right: 40.0, bottom: 20.0),
+      padding: EdgeInsets.only(left: 40.0, top: 20.0, right: 40.0, bottom: 10.0),
       child: Column(
         children: <Widget>[
           PowerTitle(
@@ -51,6 +51,10 @@ class _Overview extends State<Overview> {
           PowerTitle(
             label: '累计发电(kWh)',
             value: '552355.55'
+          ),
+          PowerTitle(
+            label: '组件容量(kW)',
+            value: '444.55'
           ),
         ]
       ),
