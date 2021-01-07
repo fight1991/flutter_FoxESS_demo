@@ -13,7 +13,7 @@ class _PlantList extends State<PlantList> {
     print(widget.type);
     return Container(
       color: Color(0xfff5f5f5),
-      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       child: Column(
         children: <Widget>[
           searchInput(),
