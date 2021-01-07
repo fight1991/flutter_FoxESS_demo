@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
-import "./TabPage.dart";
-class Station extends StatefulWidget {
+import 'PlantList.dart';
+class MyStation extends StatefulWidget {
   @override
-  _Station createState() => _Station();
+  _MyStation createState() => _MyStation();
 }
-class _Station extends State<Station> with SingleTickerProviderStateMixin{
+class _MyStation extends State<MyStation> with SingleTickerProviderStateMixin{
   TabController _tabController;
   List tabs = ['全部', '正常', '异常', '离线'];
   @override
@@ -37,10 +37,10 @@ class _Station extends State<Station> with SingleTickerProviderStateMixin{
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          TabPage(type: 1),
-          TabPage(type: 2),
-          TabPage(type: 3),
-          TabPage(type: 4),
+          PlantList(type: 1),
+          PlantList(type: 2),
+          PlantList(type: 3),
+          PlantList(type: 4),
         ],
       ),
     );

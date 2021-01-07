@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "./pages/login/Login.dart";
 import "./pages/login/Test.dart";
-import './pages/overview/Index.dart';
+import "./pages/overview/IndexTab.dart";
 import './pages/overview/Add_station.dart';
 import './pages/station/StationTab.dart';
 void main() => runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Login(),
         '/test': (context) => Test(),
-        '/overview': (context) => Index(),
+        '/overview': (context) => IndexTab(),
         '/addStation': (context) => AddStation(),
         '/stationTab': (context) => StationTab()
       },

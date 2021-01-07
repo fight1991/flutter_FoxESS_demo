@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
-class TabPage extends StatefulWidget {
+class PlantList extends StatefulWidget {
   final type;
-  TabPage({this.type});
+  PlantList({this.type});
   @override
-  _TabPage createState() => _TabPage();
+  _PlantList createState() => _PlantList();
 }
 
-class _TabPage extends State<TabPage> {
+class _PlantList extends State<PlantList> {
   @override
   Widget build(BuildContext context) {
     print('传值过来了``````');

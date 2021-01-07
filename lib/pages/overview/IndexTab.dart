@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import 'Overview.dart';
-import 'Station.dart';
+import 'MyStation.dart';
 import 'My.dart';
-class Index extends StatefulWidget {
+class IndexTab extends StatefulWidget {
  @override
- _Index createState() => _Index();
+ _IndexTab createState() => _IndexTab();
 }
-class _Index extends State<Index> {
+class _IndexTab extends State<IndexTab> {
   int _selectedIndex = 0;
   Widget currentPage = Overview();
   @override
@@ -17,7 +17,7 @@ class _Index extends State<Index> {
           index: _selectedIndex,
           children: <Widget>[
             Overview(),
-            Station(),
+            MyStation(),
             My()
           ],
         ),
@@ -30,33 +30,12 @@ class _Index extends State<Index> {
           BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('我的')),
         ],
         fixedColor: Color(0xff3390FF),
-        onTap: _onBottomItemTap,
+        onTap: (int index) {
+          setState((){
+            _selectedIndex = index;
+          });
+        },
       ),
     );
-  }
-  Widget getCurrentBottomTabPage (index) {
-    var currentPage;
-    switch (index) {
-      case 0:
-        currentPage = Overview();
-        break;
-      case 1:
-        currentPage = Station();
-        break;
-      case 2:
-        currentPage = My();
-        break;
-      default:
-        currentPage = null;
-       break;
-    }
-    return currentPage;
-  }
-  void _onBottomItemTap (int index) {
-    setState((){
-      _selectedIndex = index;
-      currentPage = getCurrentBottomTabPage(index);
-    });
-    print(index);
   }
 }
