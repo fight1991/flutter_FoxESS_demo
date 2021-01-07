@@ -2,11 +2,11 @@ import "package:flutter/material.dart";
 import 'Overview.dart';
 import 'MyStation.dart';
 import 'My.dart';
-class IndexTab extends StatefulWidget {
+class OverviewBottomBar extends StatefulWidget {
  @override
- _IndexTab createState() => _IndexTab();
+ _OverviewBottomBar createState() => _OverviewBottomBar();
 }
-class _IndexTab extends State<IndexTab> {
+class _OverviewBottomBar extends State<OverviewBottomBar> {
   int _selectedIndex = 0;
   Widget currentPage = Overview();
   @override

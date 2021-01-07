@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "./pages/login/Login.dart";
 import "./pages/login/Test.dart";
-import "./pages/overview/IndexTab.dart";
+import './pages/overview/OverviewBottomBar.dart';
 import './pages/overview/Add_station.dart';
-import './pages/station/StationTab.dart';
+import './pages/station/StationBottomBar.dart';
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Login(),
         '/test': (context) => Test(),
-        '/overview': (context) => IndexTab(),
+        '/overview': (context) => OverviewBottomBar(),
         '/addStation': (context) => AddStation(),
-        '/stationTab': (context) => StationTab()
+        '/stationTab': (context) => StationBottomBar()
       },
       theme: ThemeData(
         // primaryColor: Colors.white,

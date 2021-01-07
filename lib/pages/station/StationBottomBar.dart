@@ -1,13 +1,13 @@
 
 import "package:flutter/material.dart";
-import "./StationInfo.dart";
-import "./DeviceInfo.dart";
-import "./alarmInfo.dart";
-class StationTab extends StatefulWidget {
+import 'StationInfo.dart';
+import 'DeviceInfo.dart';
+import 'alarmInfo.dart';
+class StationBottomBar extends StatefulWidget {
   @override
-  _StationTab createState() => _StationTab();
+  _StationBottomBar createState() => _StationBottomBar();
 }
-class _StationTab extends State<StationTab> {
+class _StationBottomBar extends State<StationBottomBar> {
   int _selectedIndex = 0;
   String _stationId;
   @override
