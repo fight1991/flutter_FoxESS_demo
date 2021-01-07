@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 
 class AddStation extends StatefulWidget {
+  final opType;
+  AddStation({ Key key, this.opType}):super(key: key);
   @override
   _AddStation createState() => _AddStation();
 }
@@ -11,9 +13,14 @@ class _AddStation extends State<AddStation> {
   TextEditingController _addSnController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var pageTitle = '新建电站';
+    var args = ModalRoute.of(context).settings.arguments;
+    if (args == 'edit') {
+      pageTitle = '编辑电站';
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text('新建电站'),
+        title: Text(pageTitle),
         centerTitle: true,
         actions: <Widget>[
           Align(

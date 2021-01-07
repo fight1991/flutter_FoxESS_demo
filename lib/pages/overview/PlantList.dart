@@ -1,3 +1,4 @@
+
 import "package:flutter/material.dart";
 class PlantList extends StatefulWidget {
   final type;
@@ -54,6 +55,7 @@ class _PlantList extends State<PlantList> {
   Widget listBoxItem (String id) {
     return InkWell(
       onTap: () { Navigator.pushNamed(context, '/stationTab', arguments: id);},
+      splashColor: Colors.grey[100],
       child: Card(
         margin: EdgeInsets.only(bottom: 10.0),
         elevation: 1.0,
@@ -66,7 +68,20 @@ class _PlantList extends State<PlantList> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Icon(Icons.restore),
-                  Icon(Icons.more_horiz)
+                  IconButton(
+                    splashColor: Colors.grey[100],
+                    icon: Icon(Icons.more_horiz),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    onPressed: () async{
+                      var opType = await showStationEditDialog(id);
+                      if (opType == 1) {
+                        print(1); // 编辑操作
+                        Navigator.of(context).pushNamed('/addStation', arguments: 'edit');
+                      } else {
+                        print(2); // 删除操作
+                      }
+                    }
+                  )
                 ],
               ),
               Column(
@@ -111,6 +126,57 @@ class _PlantList extends State<PlantList> {
           ),
         )
       ),
+    );
+  }
+  // 电站编辑确认框
+  Future<int> showStationEditDialog (String sn) {
+    return showDialog<int> (
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(0.0),
+          titlePadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 0.0),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          title: Text(sn,textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 22.0),),
+          content: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(vertical: 10.0),
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: Colors.grey))
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                FlatButton(
+                  onPressed: () {Navigator.pop(context, 1);},
+                  child: Text('编辑',style: TextStyle(color: Color(0xff3390ff), fontSize: 22.0))
+                ),
+                SizedBox(
+                  width: 1.0,
+                  height: 20.0,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.grey),
+                  ),
+                ),
+                FlatButton(
+                  onPressed: () {Navigator.pop(context, 2);},
+                  child: Text('删除', style: TextStyle(color: Colors.red, fontSize: 22.0),)
+                ),
+              ],
+            ),
+          )
+          // actions: <Widget>[
+          //   FlatButton(
+          //     onPressed: () {Navigator.pop(context, 1);},
+          //     child: Text('编辑')
+          //   ),
+          //   FlatButton(
+          //     onPressed: () {Navigator.pop(context, 2);},
+          //     child: Text('删除', style: TextStyle(color: Colors.red),)
+          //   ),
+          // ],
+        );
+      }
     );
   }
 }
