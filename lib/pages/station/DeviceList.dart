@@ -76,7 +76,7 @@ class _DeviceList extends State<DeviceList> {
         }
       ),
       onTap: () {
-        Navigator.pushNamed(context, '/stationTab', arguments: id);
+        Navigator.pushNamed(context, '/deviceTab', arguments: id);
       },
     );
   }

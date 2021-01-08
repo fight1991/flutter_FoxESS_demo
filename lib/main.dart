@@ -4,6 +4,7 @@ import "./pages/login/Test.dart";
 import './pages/overview/OverviewBottomBar.dart';
 import './pages/overview/AddStation.dart';
 import './pages/station/StationBottomBar.dart';
+import './pages/device/DeviceTopBar.dart';
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
         '/test': (context) => Test(),
         '/overview': (context) => OverviewBottomBar(),
         '/addStation': (context) => AddStation(),
-        '/stationTab': (context) => StationBottomBar()
+        '/stationTab': (context) => StationBottomBar(),
+        '/deviceTab': (context) => DeviceTopBar()
       },
       theme: ThemeData(
         // primaryColor: Colors.white,
