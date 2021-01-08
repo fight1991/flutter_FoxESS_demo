@@ -27,7 +27,7 @@ class _StationBottomBar extends State<StationBottomBar> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('电站概览')),
-          BottomNavigationBarItem(icon: Icon(Icons.devices), title: Text('设备详情')),
+          BottomNavigationBarItem(icon: Icon(Icons.devices), title: Text('设备')),
           BottomNavigationBarItem(icon: Icon(Icons.alarm), title: Text('告警信息')),
         ],
         currentIndex: _selectedIndex,

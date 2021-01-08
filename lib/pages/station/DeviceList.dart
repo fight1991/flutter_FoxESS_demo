@@ -1,5 +1,6 @@
 
 import "package:flutter/material.dart";
+import "../../common/MyIcons.dart";
 import "../../common/ListBoxItem.dart";
 class DeviceList extends StatefulWidget {
   final type;
@@ -64,10 +65,10 @@ class _DeviceList extends State<DeviceList> {
         width: 70.0,
         fit: BoxFit.cover
       ),
-      headLeftIcon: Icon(Icons.restore),
+      headLeftIcon: Icon(MyIcons.success, color: Colors.green,),
       headRightIcon: IconButton(
         splashColor: Colors.grey[100],
-        icon: Icon(Icons.settings_remote),
+        icon: Icon(MyIcons.remote_setting, color: Color(0xff3390ff),),
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         alignment: Alignment.topCenter,
         onPressed: () {

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'PlantList.dart';
+import 'StationList.dart';
 class MyStation extends StatefulWidget {
   @override
   _MyStation createState() => _MyStation();
@@ -37,10 +37,10 @@ class _MyStation extends State<MyStation> with SingleTickerProviderStateMixin{
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          PlantList(type: 1),
-          PlantList(type: 2),
-          PlantList(type: 3),
-          PlantList(type: 4),
+          StationList(type: 1),
+          StationList(type: 2),
+          StationList(type: 3),
+          StationList(type: 4),
         ],
       ),
     );

@@ -1,14 +1,15 @@
 
 import "package:flutter/material.dart";
-import "../../common/ListBoxItem.dart";
-class PlantList extends StatefulWidget {
+import '../../common/ListBoxItem.dart';
+import "../../common/MyIcons.dart";
+class StationList extends StatefulWidget {
   final type;
-  PlantList({this.type});
+  StationList({this.type});
   @override
-  _PlantList createState() => _PlantList();
+  _StationList createState() => _StationList();
 }
 
-class _PlantList extends State<PlantList> {
+class _StationList extends State<StationList> {
   @override
   Widget build(BuildContext context) {
     print('传值过来了``````');
@@ -64,10 +65,10 @@ class _PlantList extends State<PlantList> {
         width: 70.0,
         fit: BoxFit.cover
       ),
-      headLeftIcon: Icon(Icons.restore),
+      headLeftIcon: Icon(MyIcons.abnormal, color: Colors.red,),
       headRightIcon: IconButton(
         splashColor: Colors.grey[100],
-        icon: Icon(Icons.more_horiz),
+        icon: Icon(MyIcons.more),
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         alignment: Alignment.topCenter,
         onPressed: () async{
