@@ -5,20 +5,19 @@ class MyStation extends StatefulWidget {
   _MyStation createState() => _MyStation();
 }
 class _MyStation extends State<MyStation> with SingleTickerProviderStateMixin{
-  TabController _tabController;
   List tabs = ['全部', '正常', '异常', '离线'];
+  TabController _tabController;
   @override
   void initState() {
-    super.initState();
-    // 创建Controller  
     _tabController = TabController(length: tabs.length, vsync: this);
+    super.initState(); 
   }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('电站'),
-        elevation: 10.0,
         centerTitle: true,
+        elevation: 4.0,
         leading: Text(''),
         actions: <Widget>[
           IconButton(
@@ -30,7 +29,7 @@ class _MyStation extends State<MyStation> with SingleTickerProviderStateMixin{
           ),
         ],
         bottom: TabBar(
-          tabs: tabs.map((v) => Text(v)).toList(),
+          tabs: tabs.map((v) => Tab(text: v,)).toList(),
           controller: _tabController,
         ),
       ),

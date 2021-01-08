@@ -8,7 +8,7 @@ class MyIcons {
   static const IconData agreement = IconData(0xe6a4, fontFamily: _family);
   static const IconData more = IconData(0xe6c8, fontFamily: _family);
   static const IconData elec = IconData(0xe66e, fontFamily: _family);
-  static const IconData device = IconData(0xe6c, fontFamily: _family);
+  static const IconData device = IconData(0xe64c, fontFamily: _family);
   static const IconData add = IconData(0xe61e, fontFamily: _family);
   static const IconData alarm = IconData(0xe69d, fontFamily: _family);
   static const IconData scan = IconData(0xe60b, fontFamily: _family);

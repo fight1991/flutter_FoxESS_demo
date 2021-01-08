@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "../../common/MyIcons.dart";
 import 'Overview.dart';
 import 'MyStation.dart';
 import 'My.dart';
@@ -25,9 +26,9 @@ class _OverviewBottomBar extends State<OverviewBottomBar> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('总览')),
-          BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('我的电站')),
-          BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('我的')),
+          BottomNavigationBarItem(icon: Icon(MyIcons.data_overview), title: Text('总览')),
+          BottomNavigationBarItem(icon: Icon(MyIcons.station), title: Text('我的电站')),
+          BottomNavigationBarItem(icon: Icon(MyIcons.user), title: Text('我')),
         ],
         fixedColor: Color(0xff3390FF),
         onTap: (int index) {

@@ -1,5 +1,6 @@
 
 import "package:flutter/material.dart";
+import "../../common/MyIcons.dart";
 import 'StationInfo.dart';
 import 'DeviceInfo.dart';
 import 'alarmInfo.dart';
@@ -26,9 +27,9 @@ class _StationBottomBar extends State<StationBottomBar> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('电站概览')),
-          BottomNavigationBarItem(icon: Icon(Icons.devices), title: Text('设备')),
-          BottomNavigationBarItem(icon: Icon(Icons.alarm), title: Text('告警信息')),
+          BottomNavigationBarItem(icon: Icon(MyIcons.overview), title: Text('电站总览')),
+          BottomNavigationBarItem(icon: Icon(MyIcons.device), title: Text('设备')),
+          BottomNavigationBarItem(icon: Icon(MyIcons.alarm), title: Text('告警信息')),
         ],
         currentIndex: _selectedIndex,
         onTap: (int index) {

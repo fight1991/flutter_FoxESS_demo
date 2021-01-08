@@ -20,6 +20,7 @@ class _DeviceInfo extends State<DeviceInfo> with SingleTickerProviderStateMixin{
       appBar: AppBar(
         title: Text('设备'),
         centerTitle: true,
+        elevation: 4.0,
         bottom: TabBar(
           tabs: tabList.map((v) => Tab(text: v,)).toList(),
           controller: _tabController,
