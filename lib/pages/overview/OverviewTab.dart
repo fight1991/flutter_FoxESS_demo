@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../common/CircularPowerProgress.dart';
 import '../../common/PowerTitle.dart';
+import '../../common/MyIcons.dart';
 class OverviewTab extends StatefulWidget {
   @override
   _OverviewTab createState() => _OverviewTab();
@@ -24,7 +25,7 @@ class _OverviewTab extends State<OverviewTab> {
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.symmetric(horizontal:15.0),
-            child: Icon(Icons.map),
+            child: Icon(MyIcons.map),
           )
         ],
       ),

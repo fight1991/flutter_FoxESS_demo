@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "./MyIcons.dart";
 class PowerTitle extends StatelessWidget {
   final String label;
   final String value;
@@ -9,7 +10,7 @@ class PowerTitle extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 10.0),
       child: Row(
         children: <Widget>[
-          Icon(Icons.power),
+          Icon(MyIcons.elec, color: Color(0xff3390ff),),
           Text(label),
           Expanded(child: Text(value, textAlign: TextAlign.center))
         ],

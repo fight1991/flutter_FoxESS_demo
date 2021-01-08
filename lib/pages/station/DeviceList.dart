@@ -72,7 +72,7 @@ class _DeviceList extends State<DeviceList> {
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         alignment: Alignment.topCenter,
         onPressed: () {
-          print('跳转到远程设置');
+          Navigator.of(context).pushNamed('/remote', arguments: id);
         }
       ),
       onTap: () {

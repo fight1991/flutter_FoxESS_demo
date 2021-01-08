@@ -36,10 +36,6 @@ class _ElecTab extends State<ElecTab> {
             label: '累计发电(kWh)',
             value: '552355.55'
           ),
-          PowerTitle(
-            label: '组件容量(kW)',
-            value: '444.55'
-          ),
         ]
       ),
     );

@@ -68,7 +68,7 @@ class _StationList extends State<StationList> {
       headLeftIcon: Icon(MyIcons.abnormal, color: Colors.red,),
       headRightIcon: IconButton(
         splashColor: Colors.grey[100],
-        icon: Icon(MyIcons.more, color: Color(0xff3933ff),),
+        icon: Icon(MyIcons.more, color: Color(0xff3390ff),),
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         alignment: Alignment.topCenter,
         onPressed: () async{

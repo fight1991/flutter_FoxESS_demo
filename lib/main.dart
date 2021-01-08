@@ -5,6 +5,7 @@ import './pages/overview/OverviewBottomBar.dart';
 import './pages/overview/AddStation.dart';
 import './pages/station/StationBottomBar.dart';
 import './pages/device/DeviceTopBar.dart';
+import './pages/remote/RemoteSetting.dart';
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         '/overview': (context) => OverviewBottomBar(),
         '/addStation': (context) => AddStation(),
         '/stationTab': (context) => StationBottomBar(),
-        '/deviceTab': (context) => DeviceTopBar()
+        '/deviceTab': (context) => DeviceTopBar(),
+        '/remote': (context) => RemoteSetting()
       },
       theme: ThemeData(
         // primaryColor: Colors.white,
