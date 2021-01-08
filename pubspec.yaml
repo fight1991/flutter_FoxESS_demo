@@ -50,6 +50,7 @@ flutter:
     - images/login_logo.png
     - images/enter.png
     - images/pv_icon.png
+    - images/inverter.png
 
   #   - images/a_dot_ham.jpeg
 
@@ -76,5 +77,10 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+  fonts:
+    - family: MyIcons
+      fonts:
+        - asset: fonts/iconfont.ttf
+          style: italic
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
