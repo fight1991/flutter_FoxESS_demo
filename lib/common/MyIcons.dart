@@ -22,4 +22,6 @@ class MyIcons {
   static const IconData offline = IconData(0xe643, fontFamily: _family);
   static const IconData data_overview = IconData(0xe612, fontFamily: _family);
   static const IconData overview = IconData(0xe605, fontFamily: _family);
+  static const IconData close = IconData(0xe607, fontFamily: _family);
+
 }
