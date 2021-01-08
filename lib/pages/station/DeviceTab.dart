@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
-import "./DeviceList.dart";
-class DeviceInfo extends StatefulWidget {
+import 'DeviceList.dart';
+class DeviceTab extends StatefulWidget {
   final String id;
-  DeviceInfo({Key key, this.id}):super(key: key);
+  DeviceTab({Key key, this.id}):super(key: key);
   @override
-  _DeviceInfo createState() => _DeviceInfo();
+  _DeviceTab createState() => _DeviceTab();
 }
-class _DeviceInfo extends State<DeviceInfo> with SingleTickerProviderStateMixin{
+class _DeviceTab extends State<DeviceTab> with SingleTickerProviderStateMixin{
   List tabList = ['全部', '正常', '异常', '离线'];
   TabController _tabController;
   @override

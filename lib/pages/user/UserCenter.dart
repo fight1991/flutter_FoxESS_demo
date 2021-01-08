@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-class My extends StatefulWidget {
+class UserCenter extends StatefulWidget {
   @override
-  _My createState() => _My();
+  _UserCenter createState() => _UserCenter();
 }
-class _My extends State<My> {
+class _UserCenter extends State<UserCenter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

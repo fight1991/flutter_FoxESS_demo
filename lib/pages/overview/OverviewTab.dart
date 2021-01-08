@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../common/CircularPowerProgress.dart';
-import "../../common/PowerTitle.dart";
-class Overview extends StatefulWidget {
+import '../../common/PowerTitle.dart';
+class OverviewTab extends StatefulWidget {
   @override
-  _Overview createState() => _Overview();
+  _OverviewTab createState() => _OverviewTab();
 }
-class _Overview extends State<Overview> {
+class _OverviewTab extends State<OverviewTab> {
   List<Map> swiperList = [
     {'item': '全部', 'num': 134},
     {'item': '正常', 'num': 123},

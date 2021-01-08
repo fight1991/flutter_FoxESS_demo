@@ -1,9 +1,9 @@
 
 import "package:flutter/material.dart";
 import "../../common/MyIcons.dart";
-import 'StationInfo.dart';
-import 'DeviceInfo.dart';
-import 'alarmInfo.dart';
+import 'BaseInfoTab.dart';
+import 'DeviceTab.dart';
+import 'AlarmTab.dart';
 class StationBottomBar extends StatefulWidget {
   @override
   _StationBottomBar createState() => _StationBottomBar();
@@ -19,9 +19,9 @@ class _StationBottomBar extends State<StationBottomBar> {
         child: IndexedStack(
           index: _selectedIndex,
           children: <Widget>[
-            StationInfo(appBarTitle: _stationId),
-            DeviceInfo(id: _stationId),
-            AlarmInfo(id: _stationId)
+            BaseInfoTab(appBarTitle: _stationId),
+            DeviceTab(id: _stationId),
+            AlarmTab(id: _stationId)
           ],
         ),
       ),

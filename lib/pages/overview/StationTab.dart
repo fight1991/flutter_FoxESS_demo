@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import 'StationList.dart';
-class MyStation extends StatefulWidget {
+class StationTab extends StatefulWidget {
   @override
-  _MyStation createState() => _MyStation();
+  _StationTab createState() => _StationTab();
 }
-class _MyStation extends State<MyStation> with SingleTickerProviderStateMixin{
+class _StationTab extends State<StationTab> with SingleTickerProviderStateMixin{
   List tabs = ['全部', '正常', '异常', '离线'];
   TabController _tabController;
   @override

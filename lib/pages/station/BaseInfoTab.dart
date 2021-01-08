@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import "../../common/CircularPowerProgress.dart";
-import "../../common/PowerTitle.dart";
-class StationInfo extends StatelessWidget {
+import '../../common/CircularPowerProgress.dart';
+import '../../common/PowerTitle.dart';
+class BaseInfoTab extends StatelessWidget {
   final String appBarTitle;
-  StationInfo({Key key, @required this.appBarTitle}):super(key: key);
+  BaseInfoTab({Key key, @required this.appBarTitle}):super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

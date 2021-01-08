@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-class AlarmInfo extends StatefulWidget {
+class AlarmTab extends StatefulWidget {
   final String id;
-  AlarmInfo({Key key, this.id}):super(key: key);
+  AlarmTab({Key key, this.id}):super(key: key);
   @override
-  _AlarmInfo createState() => _AlarmInfo();
+  _AlarmTab createState() => _AlarmTab();
 }
-class _AlarmInfo extends State<AlarmInfo> {
+class _AlarmTab extends State<AlarmTab> {
   @override
   Widget build(BuildContext context) {
     print(widget.id);

@@ -1,15 +1,14 @@
 import "package:flutter/material.dart";
 import "../../common/MyIcons.dart";
-import 'Overview.dart';
-import 'MyStation.dart';
-import 'My.dart';
+import "../user/UserCenter.dart";
+import 'OverviewTab.dart';
+import 'StationTab.dart';
 class OverviewBottomBar extends StatefulWidget {
  @override
  _OverviewBottomBar createState() => _OverviewBottomBar();
 }
 class _OverviewBottomBar extends State<OverviewBottomBar> {
   int _selectedIndex = 0;
-  Widget currentPage = Overview();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,9 +16,9 @@ class _OverviewBottomBar extends State<OverviewBottomBar> {
         child: IndexedStack(
           index: _selectedIndex,
           children: <Widget>[
-            Overview(),
-            MyStation(),
-            My()
+            OverviewTab(),
+            StationTab(),
+            UserCenter()
           ],
         ),
       ),
