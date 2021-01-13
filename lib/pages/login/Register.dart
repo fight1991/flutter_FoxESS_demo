@@ -10,7 +10,7 @@ class Register extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:<Widget> [
-                Text('USER NAME', style: TextStyle(color: Colors.white),),
+                Text('用户名', style: TextStyle(color: Colors.white),),
                 Container(
                   constraints: BoxConstraints(maxHeight: 30.0),
                   margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -33,7 +33,7 @@ class Register extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:<Widget> [
-                Text('MAILBOX', style: TextStyle(color: Colors.white),),
+                Text('邮箱', style: TextStyle(color: Colors.white),),
                 Container(
                   constraints: BoxConstraints(maxHeight: 30.0),
                   margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -56,7 +56,7 @@ class Register extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:<Widget> [
-                Text('PASSWORD', style: TextStyle(color: Colors.white),),
+                Text('密码', style: TextStyle(color: Colors.white),),
                 Container(
                   constraints: BoxConstraints(maxHeight: 30.0),
                   margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -79,7 +79,7 @@ class Register extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:<Widget> [
-                Text('CONFIRM PASSWORD', style: TextStyle(color: Colors.white),),
+                Text('确认密码', style: TextStyle(color: Colors.white),),
                 Container(
                   constraints: BoxConstraints(maxHeight: 30.0),
                   margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -100,21 +100,19 @@ class Register extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
+                margin: EdgeInsets.only(left: 10.0, right:5.0),
                 width: 20.0,
                 height: 20.0,
-                margin: EdgeInsets.only(right: 10.0),
                 child: Checkbox(
                   checkColor: Colors.white,
                   value: false,
                   onChanged: (value) {}
-                )
+                ),
               ),
-              Expanded(
-                child: Text("I'have read and agreed to the user agreement",style: TextStyle(color: Colors.white),)
-              )
+              Text("已阅读并同意用户协议",style: TextStyle(color: Colors.white, fontSize: 10.0),)
             ]
           ),
           Align(

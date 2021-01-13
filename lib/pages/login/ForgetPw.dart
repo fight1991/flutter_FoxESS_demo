@@ -32,7 +32,7 @@ class ForgetPw extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:<Widget> [
-              Text('USER NAME', style: TextStyle(color: Colors.white),),
+              Text('用户名', style: TextStyle(color: Colors.white),),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 padding: EdgeInsets.only(left: 10.0),
@@ -80,7 +80,7 @@ class ForgetPw extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:<Widget> [
-              Text('PASSWORD', style: TextStyle(color: Colors.white),),
+              Text('密码', style: TextStyle(color: Colors.white),),
               Container(
                 constraints: BoxConstraints(maxHeight: 30.0),
                 margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -103,7 +103,7 @@ class ForgetPw extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:<Widget> [
-              Text('CONFIRM PASSWORD', style: TextStyle(color: Colors.white),),
+              Text('确认密码', style: TextStyle(color: Colors.white),),
               Container(
                 constraints: BoxConstraints(maxHeight: 30.0),
                 margin: EdgeInsets.symmetric(vertical: 10.0),

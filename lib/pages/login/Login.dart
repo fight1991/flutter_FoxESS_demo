@@ -1,19 +1,8 @@
+
 import 'package:flutter/material.dart';
 import './SignIn.dart';
 import './Register.dart';
 import './ForgetPw.dart';
-
-getWidgetByTab (int index) {
-  switch (index) {
-    case 0:
-      return SignIn();
-    case 1:
-      return Register();
-    case 2:
-      return ForgetPw();
-  }
-}
-
 class Login extends StatefulWidget {
   @override
   _Login createState() => _Login();
@@ -21,12 +10,6 @@ class Login extends StatefulWidget {
 class _Login extends State<Login> {
   int currentIndex = 0;
   Widget currentWidget;
-  void changeStatus (int type) {
-    setState(() {
-      currentIndex = type;
-      currentWidget = getWidgetByTab(type);
-    });
-  }
   @override
   void initState() {
     currentWidget = getWidgetByTab(currentIndex);
@@ -40,7 +23,8 @@ class _Login extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0
+        elevation: 0.0,
+        backgroundColor: Colors.white,
       ),
       resizeToAvoidBottomPadding: false,
       body: Container(
@@ -97,15 +81,15 @@ class _Login extends State<Login> {
                         child: Row(
                           children: <Widget>[
                             FlatButton(
-                              child: Text('FORGET PASSWORD', style: TextStyle(color: currentIndex==2 ? Color(0xff3390FF) : Colors.black26)),
+                              child: Text('忘记密码', style: TextStyle(color: currentIndex==2 ? Color(0xff3390FF) : Colors.black26)),
                               onPressed: (){ changeStatus(2);}
                             ),
                             FlatButton(
-                              child: Text('SING UP', style: TextStyle(color: currentIndex==1 ? Color(0xff3390FF) : Colors.black26)),
+                              child: Text('注册', style: TextStyle(color: currentIndex==1 ? Color(0xff3390FF) : Colors.black26)),
                               onPressed: (){ changeStatus(1);}
                             ),
                             FlatButton(
-                              child: Text('SING IN', style: TextStyle(color: currentIndex==0 ? Color(0xff3390FF) : Colors.black26)),
+                              child: Text('登录', style: TextStyle(color: currentIndex==0 ? Color(0xff3390FF) : Colors.black26)),
                               onPressed: () { changeStatus(0);}
                             ),
                           ],
@@ -120,5 +104,21 @@ class _Login extends State<Login> {
         ),
       )
     );
+  }
+  void changeStatus (int type) {
+    setState(() {
+      currentIndex = type;
+      currentWidget = getWidgetByTab(type);
+    });
+  }
+  getWidgetByTab (int index) {
+    switch (index) {
+      case 0:
+        return SignIn();
+      case 1:
+        return Register();
+      case 2:
+        return ForgetPw();
+    }
   }
 }

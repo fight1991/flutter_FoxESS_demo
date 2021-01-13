@@ -9,7 +9,7 @@ class SignIn extends StatelessWidget {
           child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('ACCOUNT', style: TextStyle(color: Colors.white)),
+            Text('用户名', style: TextStyle(color: Colors.white)),
             Container(
               constraints: BoxConstraints(maxHeight: 30.0),
               margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -33,7 +33,7 @@ class SignIn extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('PASSWORD', style: TextStyle(color: Colors.white)),
+              Text('密码', style: TextStyle(color: Colors.white)),
               Container(
                 constraints: BoxConstraints(maxHeight: 30.0),
                 margin: EdgeInsets.symmetric(vertical: 10.0),
