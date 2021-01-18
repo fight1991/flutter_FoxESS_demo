@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "./common/Global.dart";
 import "./pages/login/Login.dart";
 import "./pages/login/Test.dart";
 import './pages/overview/OverviewBottomBar.dart';
@@ -7,7 +8,7 @@ import './pages/station/StationBottomBar.dart';
 import './pages/device/DeviceTopBar.dart';
 import './pages/remote/RemoteSetting.dart';
 import './pages/user/UserInfo.dart';
-void main() => runApp(MyApp());
+void main() => Global.init().then((e) => runApp(MyApp()));
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
