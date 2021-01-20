@@ -9,10 +9,9 @@ class Login extends StatefulWidget {
 }
 class _Login extends State<Login> {
   int currentIndex = 0;
-  Widget currentWidget;
+  List<Widget> currentForm = [SignIn(), Register(), ForgetPw()];
   @override
   void initState() {
-    currentWidget = getWidgetByTab(currentIndex);
     super.initState();
   }
   @override
@@ -69,7 +68,7 @@ class _Login extends State<Login> {
                             colors: [Color(0xff325CAF), Color(0xff6CA0D1)]
                           )
                         ),
-                        child: currentWidget,
+                        child: currentForm[currentIndex]
                       ),
                     ),
                     Positioned(
@@ -105,20 +104,9 @@ class _Login extends State<Login> {
       )
     );
   }
-  void changeStatus (int type) {
+  void changeStatus (int index) {
     setState(() {
-      currentIndex = type;
-      currentWidget = getWidgetByTab(type);
+      currentIndex = index;
     });
-  }
-  getWidgetByTab (int index) {
-    switch (index) {
-      case 0:
-        return SignIn();
-      case 1:
-        return Register();
-      case 2:
-        return ForgetPw();
-    }
   }
 }

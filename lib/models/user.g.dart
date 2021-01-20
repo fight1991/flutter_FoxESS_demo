@@ -8,9 +8,13 @@ part of 'user.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) {
   return User()
-    ..errno = json['errno'] as num
-    ..result = json['result'] as Map<String, dynamic>;
+    ..user = json['user'] as String
+    ..token = json['token'] as String
+    ..access = json['access'] as num;
 }
 
-Map<String, dynamic> _$UserToJson(User instance) =>
-    <String, dynamic>{'errno': instance.errno, 'result': instance.result};
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'user': instance.user,
+      'token': instance.token,
+      'access': instance.access
+    };

@@ -6,8 +6,9 @@ part 'user.g.dart';
 class User {
     User();
 
-    num errno;
-    Map<String,dynamic> result;
+    String user;
+    String token;
+    num access;
     
     factory User.fromJson(Map<String,dynamic> json) => _$UserFromJson(json);
     Map<String, dynamic> toJson() => _$UserToJson(this);

@@ -2,7 +2,7 @@
 import "package:flutter/material.dart";
 import "./Validate.dart";
 import "../../util/index.dart";
-// import '../../request/UserApi.dart';
+import '../../dio/UserApi.dart';
 class SignIn extends StatefulWidget {
   @override
   _SignIn createState() => _SignIn();
@@ -13,18 +13,20 @@ class _SignIn extends State<SignIn> {
   GlobalKey _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    _nameController.text = 'agent1234';
+    _nameController.text = 'fight1991';
     return Form(
       key: _formKey,
       autovalidate: true,
       child: Column(
         children: <Widget>[
-          formItem('用户名', _nameController, (v) {
-            print(v);
-            return Validate.userValid(v) ? null : '用户名格式不正确';
+          formItem('用户名', _nameController, () {
+            if (!Validate.userValid(_nameController.text)) {
+              showBottomDialog();
+            }
           }),
-          formItem('密码', _pwdController, (v) {
-            print(v);
-            return Validate.pwdValid(v) ? null : '密码格式不正确';
+          formItem('密码', _pwdController, () {
+            // return Validate.pwdValid(_nameController.text) ? null : '密码格式不正确';
           }),
           Align(
             alignment: Alignment.centerRight,
@@ -32,11 +34,14 @@ class _SignIn extends State<SignIn> {
               onTap: () async{
                 bool isPass = (_formKey.currentState as FormState).validate();
                 if (isPass) {
-                  // var res = await UserApi.goLogin({
-                  //   'user': _nameController.text,
-                  //   'password': Util.md5Encode(_pwdController.text)
-                  // });
+                  var res = await UserApi.login({
+                    'user': _nameController.text,
+                    'password': Util.md5Encode(_pwdController.text)
+                  });
                   // print(res);
+                  // Navigator.of(context).pushNamed('/overview');
+                } else {
+                  print('未验证通过');
                 }
                 // if(Form.of(context).validate()){
                 //   Navigator.of(context).pushNamed('/overview');
@@ -64,7 +69,7 @@ class _SignIn extends State<SignIn> {
       ),
     );
   }
-  Widget formItem (String label, TextEditingController controller, [Function validator]) {
+  Widget formItem (String label, TextEditingController controller, [Function onEditingComplete]) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.0),
       child: Column(
@@ -86,11 +91,19 @@ class _SignIn extends State<SignIn> {
               decoration: InputDecoration(
                 border: InputBorder.none
               ),
-              validator: validator ?? null
+              onEditingComplete: onEditingComplete ?? null
             ),
           ),
         ]
       ),
     );
+  }
+  // 底部弹框
+  showBottomDialog () {
+    // showBottomSheet(
+    //   context: context,
+    //   builder: (context) {
+    //     return Container(height: 200, color: Colors.lightBlue);
+    //   });
   }
 }
