@@ -31,9 +31,9 @@ class _Login extends State<Login> {
         child: Column(
           children: <Widget>[
             Align(
-              alignment: Alignment.centerRight,
+              alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(right: 20.0, bottom: 40.0),
+                padding: EdgeInsets.only(bottom: 40.0),
                 child: Image(
                   image: AssetImage("images/login_logo.png"),
                   fit: BoxFit.cover,
