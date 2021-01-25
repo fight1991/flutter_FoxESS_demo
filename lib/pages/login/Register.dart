@@ -6,97 +6,29 @@ class Register extends StatelessWidget {
       data: ThemeData(unselectedWidgetColor: Colors.white), // 单选框颜色
       child: Column(
         children: <Widget>[
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:<Widget> [
-                Text('用户名', style: TextStyle(color: Colors.white),),
-                Container(
-                  constraints: BoxConstraints(maxHeight: 30.0),
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xffCBDBEF),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0))
-                  ),
-                  child: TextField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      border: InputBorder.none
-                    ),
-                  )
-                )
-              ]
-            )
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              hintText: '用户名',
+            ),
           ),
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:<Widget> [
-                Text('邮箱', style: TextStyle(color: Colors.white),),
-                Container(
-                  constraints: BoxConstraints(maxHeight: 30.0),
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xffCBDBEF),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0))
-                  ),
-                  child: TextField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      border: InputBorder.none
-                    ),
-                  )
-                )
-              ]
-            )
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              hintText: '邮箱',
+            ),
           ),
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:<Widget> [
-                Text('密码', style: TextStyle(color: Colors.white),),
-                Container(
-                  constraints: BoxConstraints(maxHeight: 30.0),
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xffCBDBEF),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0))
-                  ),
-                  child: TextField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      border: InputBorder.none
-                    ),
-                  )
-                )
-              ]
-            )
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              hintText: '密码',
+            ),
           ),
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:<Widget> [
-                Text('确认密码', style: TextStyle(color: Colors.white),),
-                Container(
-                  constraints: BoxConstraints(maxHeight: 30.0),
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xffCBDBEF),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0))
-                  ),
-                  child: TextField(
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      border: InputBorder.none
-                    ),
-                  )
-                )
-              ]
-            )
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              hintText: '确认密码',
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

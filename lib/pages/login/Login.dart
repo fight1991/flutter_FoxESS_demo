@@ -9,9 +9,18 @@ class Login extends StatefulWidget {
 }
 class _Login extends State<Login> {
   int currentIndex = 0;
-  List<Widget> currentForm = [SignIn(), Register(), ForgetPw()];
+  List<Widget> currentForm;
   @override
   void initState() {
+    currentForm = [
+    SignIn(callback: (index){
+      setState(() {
+        currentIndex = index;
+      });
+    },),
+    Register(),
+    ForgetPw()
+  ];
     super.initState();
   }
   @override
@@ -28,6 +37,7 @@ class _Login extends State<Login> {
       resizeToAvoidBottomPadding: false,
       body: Container(
         color: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal:20.0),
         child: Column(
           children: <Widget>[
             Align(
@@ -48,52 +58,19 @@ class _Login extends State<Login> {
                   overflow: Overflow.visible,
                   fit: StackFit.expand, // 针对没有定位的元素撑满stack, container没有子元素会自动撑满父元素
                   children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(top: 25.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(150.0)),
-                        color: Color(0xfff6f6f6),
-                        boxShadow: [BoxShadow(color: Colors.black54, offset: Offset(5.0, 5.0), blurRadius: 10.0, spreadRadius: 2.0)],
-                      ),
-                    ),
+                    currentForm[currentIndex],
                     Positioned(
-                      top: 0.0,
-                      right: 20.0,
-                      child: Container(
-                        padding: EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 30.0),
-                        width: 280.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          gradient: LinearGradient(
-                            colors: [Color(0xff325CAF), Color(0xff6CA0D1)]
-                          )
-                        ),
-                        child: currentForm[currentIndex]
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FlatButton(onPressed: (){changeStatus(0);}, child: Text('登录', style: TextStyle(color: currentIndex==0?Color(0xff3390ff):Colors.black54),)),
+                          FlatButton(onPressed: (){changeStatus(1);}, child: Text('注册')),
+                          FlatButton(onPressed: (){changeStatus(2);}, child: Text('忘记密码')),
+                        ],
                       ),
-                    ),
-                    Positioned(
-                      left: 10.0,
-                      bottom: 10.0,
-                      child: Transform(
-                        transform: Matrix4.identity()
-                          ..rotateZ(270 * 3.1415927 / 180),
-                        child: Row(
-                          children: <Widget>[
-                            FlatButton(
-                              child: Text('忘记密码', style: TextStyle(color: currentIndex==2 ? Color(0xff3390FF) : Colors.black26)),
-                              onPressed: (){ changeStatus(2);}
-                            ),
-                            FlatButton(
-                              child: Text('注册', style: TextStyle(color: currentIndex==1 ? Color(0xff3390FF) : Colors.black26)),
-                              onPressed: (){ changeStatus(1);}
-                            ),
-                            FlatButton(
-                              child: Text('登录', style: TextStyle(color: currentIndex==0 ? Color(0xff3390FF) : Colors.black26)),
-                              onPressed: () { changeStatus(0);}
-                            ),
-                          ],
-                        )
-                      )
+                      left: 0.0,
+                      right: 0.0,
+                      bottom: 0.0,
                     )
                   ]
                 ),

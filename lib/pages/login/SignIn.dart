@@ -4,6 +4,8 @@ import "./Validate.dart";
 import "../../util/index.dart";
 import '../../dio/UserApi.dart';
 class SignIn extends StatefulWidget {
+  SignIn({this.callback});
+  final Function callback;
   @override
   _SignIn createState() => _SignIn();
 }
@@ -11,6 +13,7 @@ class _SignIn extends State<SignIn> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _pwdController = TextEditingController();
   GlobalKey _formKey = GlobalKey<FormState>();
+  bool isRemeber = false;
   @override
   Widget build(BuildContext context) {
     _nameController.text = 'agent1234';
@@ -29,10 +32,36 @@ class _SignIn extends State<SignIn> {
               return Validate.pwdValid(v) ? null : '密码格式错误';
             }
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: InkWell(
-              onTap: () async{
+          Padding(
+            padding: EdgeInsets.only(top: 15.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 30.0,
+                      height: 20.0,
+                      child: Checkbox(value: isRemeber, onChanged: (bool) {
+                        setState(() {
+                          isRemeber = !isRemeber;
+                        });
+                      }),
+                    ),
+                    Text('记住密码'),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.0),
+            child: FlatButton(
+              color: Color(0xff3390ff),
+              minWidth: double.infinity,
+              textColor: Colors.white,
+              onPressed: () async{
                 var _state = _formKey.currentState as FormState;
                 bool isPass = _state.validate();
                 if (isPass) {
@@ -42,28 +71,15 @@ class _SignIn extends State<SignIn> {
                   });
                   if (null != res) {
                     // 持久化用户信息
-                    
+                    print(res);
                   }
                   // print(res);
                   // Navigator.of(context).pushNamed('/overview');
                 } else {
                   print('未验证通过');
                 }
-              },
-              child: Container(
-                padding: EdgeInsets.only(top:10.0, right:20.0, bottom:10.0, left:20.0),
-                margin: EdgeInsets.only(top: 10.0, right: 10.0),
-                decoration: BoxDecoration(
-                  color: Color(0xff94C5FF),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  boxShadow: [BoxShadow(color: Colors.black54, offset: Offset(5.0, 5.0), blurRadius: 10.0, spreadRadius: 2.0)]
-                ),
-                child: Image(
-                  image: AssetImage("images/enter.png"),
-                  fit: BoxFit.cover,
-                  width: 35.0,
-                )
-              )
+              }, 
+              child: Text('登录')
             )
           )
         ],
@@ -72,30 +88,28 @@ class _SignIn extends State<SignIn> {
   }
   Widget formItem (String label, TextEditingController controller, {Function onEditingComplete, Function validator, Function onSaved}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: EdgeInsets.symmetric(vertical: 5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(label, style: TextStyle(color: Colors.white)),
-          Container(
-            // constraints: BoxConstraints(maxHeight: 30.0),
-            height: 30.0,
-            margin: EdgeInsets.symmetric(vertical: 10.0),
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-              color: Color(0xffCBDBEF),
-              borderRadius: BorderRadius.all(Radius.circular(10.0))
+          TextFormField(
+            controller: controller,      
+            style: TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              // labelText: label,
+              prefixIcon: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                verticalDirection: VerticalDirection.up,
+                children: [Text(label, style: TextStyle(color:Colors.black87,fontSize: 16.0),),SizedBox(width:30.0)],
+              )
+              
+              // isDense: true,
+              // border: OutlineInputBorder(borderSide: BorderSide(width:1.0),borderRadius: BorderRadius.all(Radius.circular(10.0)))
             ),
-            child: TextFormField(
-              controller: controller,
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-              ),
-              onEditingComplete: onEditingComplete ?? null,
-              validator: validator ?? null,
-              onSaved: onSaved ?? null
-            ),
+            onEditingComplete: onEditingComplete ?? null,
+            validator: validator ?? null,
+            onSaved: onSaved ?? null
           ),
         ]
       ),
