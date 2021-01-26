@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hybridApp/dio/UserApi.dart';
 import "./Validate.dart";
 
@@ -63,28 +64,6 @@ class _Register extends State<Register> {
               return Validate.userValid(v) ? null : '密码格式错误';
             },
           ),
-          TextFormField(
-            style: TextStyle(color: Colors.black),
-            controller: _pwdConfirm,
-            decoration: InputDecoration(
-              labelText: '确认密码',
-              icon: Text('*', style: TextStyle(color: Colors.red),)
-            ),
-            validator: (v) {
-              return Validate.userValid(v) ? null : '密码格式错误';
-            },
-          ),
-          TextFormField(
-            style: TextStyle(color: Colors.black),
-            controller: _pwdConfirm,
-            decoration: InputDecoration(
-              labelText: '确认密码',
-              icon: Text('*', style: TextStyle(color: Colors.red),)
-            ),
-            validator: (v) {
-              return Validate.userValid(v) ? null : '密码格式错误';
-            },
-          ),
           Padding(
             padding: EdgeInsets.only(top: 15.0),
             child: Row(
@@ -118,9 +97,11 @@ class _Register extends State<Register> {
                 var _state = _formKey.currentState as FormState;
                 bool isPass = _state.validate();
                 if (isPass) {
-                  // var res = await UserApi.register({
-                    
-                  // })
+                  if (!isAgree) {
+                    Fluttertoast.showToast(msg: '请勾选阅读协议');
+                    return false;
+                  }
+                  // 下一步
                 } else {
                   print('未验证通过');
                 }

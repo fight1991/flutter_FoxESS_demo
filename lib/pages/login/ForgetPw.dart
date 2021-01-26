@@ -1,145 +1,96 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
-class ForgetPw extends StatelessWidget {
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hybridApp/dio/UserApi.dart';
+import "./Validate.dart";
+
+class ForgetPw extends StatefulWidget {
+  @override
+  _ForgetPw createState() => _ForgetPw();
+}
+class _ForgetPw extends State<ForgetPw> {
+  GlobalKey _formKey = GlobalKey<FormState>();
+  TextEditingController _username = TextEditingController();
+  TextEditingController _code = TextEditingController();
+  TextEditingController _pwd = TextEditingController();
+  TextEditingController _pwdConfirm = TextEditingController();
+  bool isAgree = true;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:<Widget> [
-              Text('用户名', style: TextStyle(color: Colors.white),),
-              Container(
-                constraints: BoxConstraints(maxHeight: 30.0),
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                  color: Color(0xffCBDBEF),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                ),
-                child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    border: InputBorder.none
-                  ),
-                )
-              )
-            ]
-          )
-        ),
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:<Widget> [
-              Text('验证码', style: TextStyle(color: Colors.white),),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                padding: EdgeInsets.only(left: 10.0),
-                decoration: BoxDecoration(
-                  color: Color(0xffCBDBEF),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      constraints: BoxConstraints(maxHeight: 30.0),
-                      width: 40.0,
-                      child: TextField(
-                        style: TextStyle(color: Colors.black),
-                        inputFormatters: <TextInputFormatter>[
-                          WhitelistingTextInputFormatter.digitsOnly, // 只能是数字
-                          LengthLimitingTextInputFormatter(4) // 限制长度
-                        ],
-                        decoration: InputDecoration(
-                          border: InputBorder.none
-                        ),
-                      )
-                    ),
-                    Container(
-                      constraints: BoxConstraints(maxHeight: 30.0),
-                      margin: EdgeInsets.only(top: 2.0, bottom: 2.0, right: 3.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xff3390FF), width: 1.0),
-                        borderRadius: BorderRadius.all(Radius.circular(14.0))
-                      ),
-                      child: FlatButton(
-                        onPressed: () {print('哈哈');},
-                        child: Text('Send verification code', style: TextStyle(color: Color(0xff3390FF))),
-                        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))
-                      )
-                    )
-                  ],
-                )
-              )
-            ]
-          )
-        ),
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:<Widget> [
-              Text('密码', style: TextStyle(color: Colors.white),),
-              Container(
-                constraints: BoxConstraints(maxHeight: 30.0),
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                  color: Color(0xffCBDBEF),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                ),
-                child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    border: InputBorder.none
-                  ),
-                )
-              )
-            ]
-          )
-        ),
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:<Widget> [
-              Text('确认密码', style: TextStyle(color: Colors.white),),
-              Container(
-                constraints: BoxConstraints(maxHeight: 30.0),
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                  color: Color(0xffCBDBEF),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                ),
-                child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    border: InputBorder.none
-                  ),
-                )
-              )
-            ]
-          )
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.only(top:10.0, right:20.0, bottom:10.0, left:20.0),
-            margin: EdgeInsets.only(top: 10.0, right: 10.0),
-            decoration: BoxDecoration(
-              color: Color(0xff94C5FF),
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              boxShadow: [BoxShadow(color: Colors.black54, offset: Offset(5.0, 5.0), blurRadius: 10.0, spreadRadius: 2.0)]
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            controller: _username,
+            decoration: InputDecoration(
+              labelText: '用户名',
+              icon: Text('*', style: TextStyle(color: Colors.red),),
             ),
-            child: Image(
-              image: AssetImage("images/enter.png"),
-              fit: BoxFit.cover,
-              width: 35.0,
+            validator: (v) {
+              return Validate.userValid(v) ? null : '用户名格式错误';
+            },
+          ),
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            controller: _code,
+            decoration: InputDecoration(
+              labelText: '验证码',
+              icon: Text('*', style: TextStyle(color: Colors.red),),
+              suffixIcon: FlatButton(
+                child: Text('获取验证码'),
+                onPressed: (){},
+                splashColor: Colors.black12,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))
+              )
+            ),
+            validator: (v) {
+              return Validate.codeValid(v) ? null : '验证码格式错误';
+            },
+          ),
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            controller: _pwd,
+            decoration: InputDecoration(
+              labelText: '密码',
+              icon: Text('*', style: TextStyle(color: Colors.red),)
+            ),
+            validator: (v) {
+              return Validate.pwdValid(v) ? null : '密码格式错误';
+            },
+          ),
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            controller: _pwdConfirm,
+            decoration: InputDecoration(
+              labelText: '确认密码',
+              icon: Text('*', style: TextStyle(color: Colors.red),)
+            ),
+            validator: (v) {
+              return Validate.userValid(v) ? null : '密码格式错误';
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 30.0),
+            child: FlatButton(
+              color: Color(0xff3390ff),
+              minWidth: double.infinity,
+              textColor: Colors.white,
+              onPressed: () async{
+                var _state = _formKey.currentState as FormState;
+                bool isPass = _state.validate();
+                if (isPass) {
+                  
+                  // 下一步
+                } else {
+                  print('未验证通过');
+                }
+              }, 
+              child: Text('重置')
             )
           )
-        )
-      ],
+        ],
+      ),
     );
   }
 }

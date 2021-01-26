@@ -24,6 +24,17 @@ class _SignIn extends State<SignIn> {
       key: _formKey,
       child: Column(
         children: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 40.0),
+              child: Image(
+                image: AssetImage("images/login_logo.png"),
+                fit: BoxFit.cover,
+                width: 180.0,
+              ),
+            )
+          ),
           formItem('用户名', _nameController, 
             validator: (v) {
               return Validate.userValid(v) ? null : '用户名格式错误';

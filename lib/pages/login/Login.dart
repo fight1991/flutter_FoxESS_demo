@@ -40,17 +40,6 @@ class _Login extends State<Login> {
         padding: EdgeInsets.symmetric(horizontal:20.0),
         child: Column(
           children: <Widget>[
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 40.0),
-                child: Image(
-                  image: AssetImage("images/login_logo.png"),
-                  fit: BoxFit.cover,
-                  width: 180.0,
-                ),
-              )
-            ),
             Expanded(
               child: ConstrainedBox(
                 constraints: BoxConstraints.expand(),
