@@ -15,7 +15,7 @@ class _SignIn extends State<SignIn> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _pwdController = TextEditingController();
   GlobalKey _formKey = GlobalKey<FormState>();
-  bool isRemeber = false;
+  bool isRemeber = true;
   @override
   Widget build(BuildContext context) {
     _nameController.text = 'agent1234';
@@ -78,6 +78,7 @@ class _SignIn extends State<SignIn> {
                     context.read<UserModel>().user = res;
                     var aa = context.read<UserModel>().user;
                     print(aa.user);
+                    Navigator.of(context).pushNamed('/overview');
                   }
                   // print(res);
                   // Navigator.of(context).pushNamed('/overview');
