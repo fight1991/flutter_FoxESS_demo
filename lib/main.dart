@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import "./provider/UserModel.dart";
 import "./common/Global.dart";
 import "./pages/login/Login.dart";
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           ),
           scaffoldBackgroundColor: Colors.white
         ),
+        builder: EasyLoading.init(),
       ),
     );
   }

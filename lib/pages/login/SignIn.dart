@@ -1,5 +1,7 @@
 
 import "package:flutter/material.dart";
+import "package:provider/provider.dart";
+import "../../provider/UserModel.dart";
 import "./Validate.dart";
 import "../../util/index.dart";
 import '../../dio/UserApi.dart';
@@ -17,7 +19,7 @@ class _SignIn extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     _nameController.text = 'agent1234';
-    _nameController.text = 'fight1991';
+    _pwdController.text = 'fight1991';
     return Form(
       key: _formKey,
       child: Column(
@@ -72,6 +74,10 @@ class _SignIn extends State<SignIn> {
                   if (null != res) {
                     // 持久化用户信息
                     print(res);
+                    // Provider.of<UserModel>(context,listen: false).user = res;
+                    context.read<UserModel>().user = res;
+                    var aa = context.read<UserModel>().user;
+                    print(aa.user);
                   }
                   // print(res);
                   // Navigator.of(context).pushNamed('/overview');
