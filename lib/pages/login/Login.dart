@@ -64,8 +64,8 @@ class _Login extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           FlatButton(onPressed: (){changeStatus(0);}, child: Text('登录', style: TextStyle(color: currentIndex==0?Color(0xff3390ff):Colors.black54),)),
-                          FlatButton(onPressed: (){changeStatus(1);}, child: Text('注册', style: TextStyle(color: currentIndex==0?Color(0xff3390ff):Colors.black54))),
-                          FlatButton(onPressed: (){changeStatus(2);}, child: Text('忘记密码', style: TextStyle(color: currentIndex==0?Color(0xff3390ff):Colors.black54))),
+                          FlatButton(onPressed: (){changeStatus(1);}, child: Text('注册', style: TextStyle(color: currentIndex==1?Color(0xff3390ff):Colors.black54))),
+                          FlatButton(onPressed: (){changeStatus(2);}, child: Text('忘记密码', style: TextStyle(color: currentIndex==2?Color(0xff3390ff):Colors.black54))),
                         ],
                       ),
                       left: 0.0,
