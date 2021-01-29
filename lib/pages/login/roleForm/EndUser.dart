@@ -1,6 +1,11 @@
 
 
 import "package:flutter/material.dart";
+import 'package:hybridApp/dio/UserApi.dart';
+import "package:provider/provider.dart";
+import "../BaseDataProvider.dart";
+
+
 import "../../../common/MyIcons.dart";
 class EndUser extends StatefulWidget {
   @override
@@ -38,6 +43,9 @@ class _EndUser extends State<EndUser> {
                     },
                   )
                 ),
+                validator: (v) {
+                  return v.trim().length > 0 ? null: 'SN不能为空';
+                },
               ),
               TextFormField(
                 controller: _codeController,
@@ -49,20 +57,36 @@ class _EndUser extends State<EndUser> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 30.0),
-                child: FlatButton(
-                  color: Color(0xff3390ff),
-                  minWidth: double.infinity,
-                  textColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                  onPressed: () async{
-                    var _state = _formKey.currentState as FormState;
-                    bool isPass = _state.validate();
-                    if (isPass) {
-                      
-                    }
-                  }, 
-                  child: Text('确定')
-                ),
+                child: Consumer<BaseData>(
+                  builder: (context, baseData, child) {
+                    return FlatButton(
+                      color: Color(0xff3390ff),
+                      minWidth: double.infinity,
+                      textColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                      onPressed: () async{
+                        var _state = _formKey.currentState as FormState;
+                        bool isPass = _state.validate();
+                        if (isPass) {
+                          print(baseData.baseForm);
+                          bool res = await UserApi.register({
+                            'accountInfo': baseData.baseForm,
+                            'userInfo': {
+                              'sn': _snController.text,
+                              'code': _codeController.text
+                            }
+                          });
+                          // 注册成功, 重新登录
+                          if (res) {
+                            Navigator.of(context).pushNamedAndRemoveUntil('/',(Route<dynamic> route) => false);
+                          }
+                        }
+                      }, 
+                      child: child
+                    );
+                  },
+                  child: Text('确定'),
+                )
               )
             ]
           ),

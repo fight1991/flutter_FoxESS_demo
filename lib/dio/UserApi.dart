@@ -9,19 +9,19 @@ class UserApi {
       data: data
     );
     var resp = json.decode(res.toString());
-    return User.fromJson(resp);
+    return User.fromJson(resp['result']);
   }
-  static Future<dynamic> register(data) async {
+  static Future<bool> register(data) async {
     var res = await Fetch.post(
-      path: '/c/v0/user/register',
+      path: '/c/v1/user/register',
       data: data
     );
     var resp = json.decode(res.toString());
-    return resp;
+    return resp['errno'] == 0;
   }
   static Future<dynamic> restPw(data) async {
     var res = await Fetch.post(
-      path: '/c/v0/user/register',
+      path: '/c/v0/user/reset',
       data: data
     );
     var resp = json.decode(res.toString());
@@ -29,7 +29,7 @@ class UserApi {
   }
   static Future<dynamic> getCode(data) async {
     var res = await Fetch.post(
-      path: '/c/v0/user/register',
+      path: '/c/v0/user/sendcaptcha',
       data: data
     );
     var resp = json.decode(res.toString());

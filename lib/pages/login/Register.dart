@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:fluttertoast/fluttertoast.dart';
+import "package:provider/provider.dart";
+import './BaseDataProvider.dart';
 import './RoleType.dart';
 import 'package:hybridApp/dio/UserApi.dart';
 import "./Validate.dart";
@@ -110,33 +112,47 @@ class _Register extends State<Register> {
                   ],
                 ),
               ),
-              FlatButton(
-                color: Color(0xff3390ff),
-                minWidth: double.infinity,
-                textColor: Colors.white,
-                onPressed: () async{
-                  var _state = _formKey.currentState as FormState;
-                  bool isPass = _state.validate();
-                  if (isPass) {
-                    if (!isAgree) {
-                      Fluttertoast.showToast(msg: '请勾选阅读协议');
-                      return false;
-                    }
-                    // 下一步
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => RoleType())
-                    );
-                  } else {
-                    print('未验证通过');
-                  }
-                }, 
-                child: Text('下一步')
+              Consumer<BaseData>(
+                builder: (context, baseData, child) {
+                  return FlatButton(
+                    color: Color(0xff3390ff),
+                    minWidth: double.infinity,
+                    textColor: Colors.white,
+                    onPressed: () async{
+                      var _state = _formKey.currentState as FormState;
+                      bool isPass = _state.validate();
+                      if (isPass) {
+                        if (_pwd.text != _pwdConfirm.text) {
+                          Fluttertoast.showToast(msg: '2次输入的不一致');
+                          return false;
+                        }
+                        if (!isAgree) {
+                          Fluttertoast.showToast(msg: '请勾选阅读协议');
+                          return false;
+                        }
+                        // 下一步存储基础数据,并跳转到下一页
+                        baseData.saveBaseForm('account', _username.text);
+                        baseData.saveBaseForm('password', _pwd.text);
+                        baseData.saveBaseForm('confirmWord', _pwdConfirm.text);
+                        baseData.saveBaseForm('email', _email.text);
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context) => RoleType())
+                        );
+                      } else {
+                        print('未验证通过');
+                      }
+                    }, 
+                    child: child
+                  );
+                },
+                child: Text('下一步'),
               )
             ],
           ),
         ),
       )
     );
+    
   }
 }

@@ -44,7 +44,7 @@ class DioInit {
           );
         }
         EasyLoading.dismiss();
-        return resp['result'];
+        return resp;
       },
       onError: (DioError err) {
         EasyLoading.dismiss();

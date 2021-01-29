@@ -11,7 +11,7 @@ class _RoleType extends State<RoleType> {
       appBar: AppBar(
         title: Text('用户类型'),
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Container(
         child: Center(

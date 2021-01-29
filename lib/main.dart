@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
+import "./pages/login/BaseDataProvider.dart";
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import "./provider/UserModel.dart";
 import "./common/Global.dart";
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserModel(),)
+        ChangeNotifierProvider(create: (_) => UserModel(),),
+        ChangeNotifierProvider(create: (_) => BaseData())
       ],
       child: MaterialApp(
         title: 'FoxESS',
@@ -41,9 +43,9 @@ class MyApp extends StatelessWidget {
           splashColor: Colors.transparent, // 点击时的高亮效果设置为透明
           highlightColor: Colors.transparent, // 长按时的扩散效果设置为透明
           textTheme: TextTheme(
-            subtitle1: TextStyle(color: Color(0xff3390FF), fontSize: 18.0),
-            bodyText1: TextStyle(color: Color(0xff3390FF), fontSize: 18.0),
-            bodyText2: TextStyle(color: Color(0xff3390FF), fontSize: 14.0),
+            subtitle1: TextStyle(fontSize: 18.0),
+            bodyText1: TextStyle(fontSize: 18.0),
+            bodyText2: TextStyle(fontSize: 14.0),
           ),
           scaffoldBackgroundColor: Colors.white
         ),
