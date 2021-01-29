@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "./roleForm/EndUser.dart";
 class RoleType extends StatefulWidget {
   @override
   _RoleType createState() => _RoleType();
@@ -17,8 +18,16 @@ class _RoleType extends State<RoleType> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              roleBlock('终端用户', Colors.green),
-              roleBlock('安装商', Colors.orange),
+              roleBlock('终端用户', Colors.green, onTap: (){
+                // 打开终端用户页面
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EndUser())
+                );
+              }),
+              roleBlock('安装商', Colors.orange, onTap: (){
+                // 打开安装商页面
+              }),
               roleBlock('代理商', Colors.blue, onTap: () async{
                 int i = await chooseAgentDialog();
                 print(i);
