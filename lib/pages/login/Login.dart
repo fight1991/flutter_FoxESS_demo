@@ -8,19 +8,9 @@ class Login extends StatefulWidget {
   _Login createState() => _Login();
 }
 class _Login extends State<Login> {
-  int currentIndex = 0;
-  List<Widget> currentForm;
   @override
   void initState() {
-    currentForm = [
-    SignIn(callback: (index){
-      setState(() {
-        currentIndex = index;
-      });
-    },),
-    Register(),
-    ForgetPw()
-  ];
+
     super.initState();
   }
   @override
@@ -47,14 +37,14 @@ class _Login extends State<Login> {
                   overflow: Overflow.visible,
                   fit: StackFit.expand, // 针对没有定位的元素撑满stack, container没有子元素会自动撑满父元素
                   children: <Widget>[
-                    currentForm[currentIndex],
+                    // currentForm[currentIndex],
+                    SignIn(),
                     Positioned(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FlatButton(onPressed: (){changeStatus(0);}, child: Text('登录', style: TextStyle(color: currentIndex==0?Color(0xff3390ff):Colors.black54),)),
-                          FlatButton(onPressed: (){changeStatus(1);}, child: Text('注册', style: TextStyle(color: currentIndex==1?Color(0xff3390ff):Colors.black54))),
-                          FlatButton(onPressed: (){changeStatus(2);}, child: Text('忘记密码', style: TextStyle(color: currentIndex==2?Color(0xff3390ff):Colors.black54))),
+                          FlatButton(onPressed: (){changeStatus(1);}, child: Text('注册', style: TextStyle(color: Colors.black54))),
+                          FlatButton(onPressed: (){changeStatus(2);}, child: Text('忘记密码', style: TextStyle(color: Colors.black54))),
                         ],
                       ),
                       left: 0.0,
@@ -71,8 +61,13 @@ class _Login extends State<Login> {
     );
   }
   void changeStatus (int index) {
-    setState(() {
-      currentIndex = index;
-    });
+    if (index == 1) {// 打开注册页面
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Register()
+        )
+      );
+    }
   }
 }
