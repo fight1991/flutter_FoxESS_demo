@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:provider/provider.dart";
+import "../../util/index.dart";
 import './BaseDataProvider.dart';
 import './RoleType.dart';
 import 'package:hybridApp/dio/UserApi.dart';
@@ -132,8 +133,7 @@ class _Register extends State<Register> {
                         }
                         // 下一步存储基础数据,并跳转到下一页
                         baseData.saveBaseForm('account', _username.text);
-                        baseData.saveBaseForm('password', _pwd.text);
-                        baseData.saveBaseForm('confirmWord', _pwdConfirm.text);
+                        baseData.saveBaseForm('password', Util.md5Encode(_pwd.text));
                         baseData.saveBaseForm('email', _email.text);
                         Navigator.push(
                           context, 
