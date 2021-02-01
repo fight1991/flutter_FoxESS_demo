@@ -1,5 +1,7 @@
 
+import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:dio/adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -18,7 +20,17 @@ class DioInit {
     receiveTimeout: 15000,
   );
   static Dio dio = Dio(options);
+  
   static void init() {
+    //Fiddler抓包设置代理
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client){
+      client.findProxy = (url){
+        return "PROXY 192.168.10.57:8866";
+      };
+      //抓Https包设置
+      client.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    };
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (Options options) async{
         EasyLoading.instance

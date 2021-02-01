@@ -22,7 +22,7 @@ class _RoleType extends State<RoleType> {
                 // 打开终端用户页面
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EndUser())
+                  MaterialPageRoute(builder: (context) => EndUser(type: 'user'))
                 );
               }),
               roleBlock('安装商', Colors.orange, onTap: (){

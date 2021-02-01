@@ -8,6 +8,8 @@ import "../BaseDataProvider.dart";
 
 import "../../../common/MyIcons.dart";
 class EndUser extends StatefulWidget {
+  final String type;
+  EndUser({this.type});
   @override
   _EndUser createState() => _EndUser();
 }
@@ -15,7 +17,6 @@ class _EndUser extends State<EndUser> {
   GlobalKey _formKey = GlobalKey<FormState>();
   TextEditingController _snController = TextEditingController();
   TextEditingController _codeController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,9 +69,10 @@ class _EndUser extends State<EndUser> {
                         var _state = _formKey.currentState as FormState;
                         bool isPass = _state.validate();
                         if (isPass) {
-                          print(baseData.baseForm);
+                          var accountForm = baseData.baseForm;
+                          accountForm['type'] = widget.type;
                           bool res = await UserApi.register({
-                            'accountInfo': baseData.baseForm,
+                            'accountInfo': accountForm,
                             'userInfo': {
                               'sn': _snController.text,
                               'code': _codeController.text
