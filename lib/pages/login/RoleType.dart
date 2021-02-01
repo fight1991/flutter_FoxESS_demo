@@ -37,10 +37,12 @@ class _RoleType extends State<RoleType> {
               }),
               roleBlock('代理商', Colors.blue, onTap: () async{
                 int i = await chooseAgentDialog();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: switchPageRoute(context, i))
-                );
+                if (i == 1 || i == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: switchPageRoute(context, i))
+                  );
+                }
               }),
             ],
           ),

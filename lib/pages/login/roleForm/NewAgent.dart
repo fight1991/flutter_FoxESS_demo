@@ -31,10 +31,10 @@ class _NewAgent extends State<NewAgent> {
         // backgroundColor: Colors.white,
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
             children: [
               TextFormField(
                 controller: _nameController,
