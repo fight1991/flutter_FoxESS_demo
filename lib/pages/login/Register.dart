@@ -4,7 +4,6 @@ import "package:provider/provider.dart";
 import "../../util/index.dart";
 import './BaseDataProvider.dart';
 import './RoleType.dart';
-import 'package:hybridApp/dio/UserApi.dart';
 import "./Validate.dart";
 
 class Register extends StatefulWidget {

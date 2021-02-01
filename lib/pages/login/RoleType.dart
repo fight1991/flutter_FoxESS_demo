@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
 import "./roleForm/EndUser.dart";
+import "./roleForm/Installer.dart";
+import "./roleForm/JoinAgent.dart";
+import './roleForm/NewAgent.dart';
 class RoleType extends StatefulWidget {
   @override
   _RoleType createState() => _RoleType();
@@ -27,10 +30,17 @@ class _RoleType extends State<RoleType> {
               }),
               roleBlock('安装商', Colors.orange, onTap: (){
                 // 打开安装商页面
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Installer(type: 'installer',))
+                );
               }),
               roleBlock('代理商', Colors.blue, onTap: () async{
                 int i = await chooseAgentDialog();
-                print(i);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: switchPageRoute(context, i))
+                );
               }),
             ],
           ),
@@ -94,5 +104,14 @@ class _RoleType extends State<RoleType> {
         );
       }
     );
+  }
+  switchPageRoute (context, i) {
+    if (i == 1) {
+      return (context) => NewAgent(type: 'agent',);
+    } else if (i == 2) {
+      return (context) => JoinAgent(type: 'agent');
+    } else {
+      return null;
+    }
   }
 }
