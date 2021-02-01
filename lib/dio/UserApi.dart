@@ -35,12 +35,12 @@ class UserApi {
     var resp = json.decode(res.toString());
     return resp;
   }
-  static Future<dynamic> logOut(data) async {
+  static Future<bool> logOut(data) async {
     var res = await Fetch.post(
       path: '/c/v0/user/logout',
       data: data
     );
     var resp = json.decode(res.toString());
-    return resp;
+    return resp['errno'] == 0;
   }
 }

@@ -52,6 +52,9 @@ class _UserCenter extends State<UserCenter> {
                     child: ListTile(
                       title: Text('退出', style: TextStyle(color: Colors.black)),
                       leading: Icon(MyIcons.close, size: 40.0, color: Colors.red,),
+                      onTap: () {
+                        
+                      },
                     )
                   ),
                 ],

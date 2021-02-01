@@ -27,16 +27,16 @@ class CircularPowerProgress extends StatelessWidget {
         children: <Widget>[
           // 进度条
           MyCircularProgress(
-            radius: 125.0, // 圆的半径
+            radius: 124.0, // 圆的半径
             backgroundColor: Colors.white,
-            strokeWidth: 12.0,
+            strokeWidth: 15.0,
             colors: [Colors.blue, Colors.blue],
             value: .5,
           ),
           Container(
             alignment: Alignment.center,
-            width: 200.0,
-            height: 200.0,
+            width: 195.0,
+            height: 195.0,
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle
@@ -45,7 +45,7 @@ class CircularPowerProgress extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(currentPower, style: TextStyle(fontSize: 28.0,fontWeight: FontWeight.bold)),
+              Text(currentPower, style: TextStyle(fontSize: 28.0,fontWeight: FontWeight.bold, color: Color(0xff3390ff))),
               Text('当前功率(kw)')
             ]
           )
