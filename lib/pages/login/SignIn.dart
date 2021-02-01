@@ -18,8 +18,10 @@ class _SignIn extends State<SignIn> {
   bool isRemeber = true;
   @override
   Widget build(BuildContext context) {
-    _nameController.text = 'agent1234';
-    _pwdController.text = 'fight1991';
+    var username = ModalRoute.of(context).settings.arguments;
+    if (null != username) {
+      _nameController.text = username;
+    }
     return Form(
       key: _formKey,
       child: Column(

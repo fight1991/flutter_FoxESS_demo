@@ -1,6 +1,7 @@
 
 
 import "package:flutter/material.dart";
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hybridApp/dio/UserApi.dart';
 import "package:provider/provider.dart";
 import "../BaseDataProvider.dart";
@@ -80,7 +81,10 @@ class _EndUser extends State<EndUser> {
                           });
                           // 注册成功, 重新登录
                           if (res) {
-                            Navigator.of(context).pushNamedAndRemoveUntil('/',(Route<dynamic> route) => false);
+                            var isClose = await Fluttertoast.showToast(msg: '注册成功');
+                            if (isClose) {
+                              Navigator.of(context).pushNamedAndRemoveUntil('/',(Route<dynamic> route) => false, arguments: accountForm['account']);
+                            }
                           }
                         }
                       }, 
