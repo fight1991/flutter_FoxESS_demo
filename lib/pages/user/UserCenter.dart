@@ -1,6 +1,8 @@
+
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../common/Global.dart';
 import "../../common/MyIcons.dart";
 import "../../dio/UserApi.dart";
 class UserCenter extends StatefulWidget {
@@ -8,6 +10,17 @@ class UserCenter extends StatefulWidget {
   _UserCenter createState() => _UserCenter();
 }
 class _UserCenter extends State<UserCenter> {
+  String username = '';
+  String roleName = '';
+  int access;
+  @override
+  void initState() {
+    username = Global.profile.user.user;
+    access = Global.profile.user.access;
+    roleName = getRoleName(access);
+    print(roleName);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +40,11 @@ class _UserCenter extends State<UserCenter> {
               ),
               accountName: Padding(
                 padding: EdgeInsets.only(left: 5.0),
-                child: Text('张三', style: TextStyle(fontWeight: FontWeight.w600),),
+                child: Text(username, style: TextStyle(fontWeight: FontWeight.w600),),
               ),
               accountEmail: Padding(
                 padding: EdgeInsets.only(left: 5.0),
-                child: Text('11212@12.com'),
+                child: Text(roleName),
               ),
             ),
             Container(
@@ -45,7 +58,7 @@ class _UserCenter extends State<UserCenter> {
                       leading: Icon(MyIcons.user_outline, size: 40.0, color: Colors.blue,),
                       trailing: Icon(Icons.keyboard_arrow_right),
                       onTap: () {
-                        Navigator.of(context).pushNamed('/userInfo');
+                        Navigator.of(context).pushNamed('/userInfo', arguments: {'name': username, 'roleName': roleName, 'access': access});
                       },
                     ),
                   ),
@@ -62,7 +75,7 @@ class _UserCenter extends State<UserCenter> {
                           if (res) {
                             // 确认框
                             Fluttertoast.showToast(msg: '注销成功');
-                            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false,);
                           }
                         }
                       },
@@ -74,33 +87,6 @@ class _UserCenter extends State<UserCenter> {
           ],
         ),
       )
-      // body: Container(
-      //   padding: EdgeInsets.symmetric(horizontal:10.0, vertical: 15.0),
-      //   child: Column(
-      //     children: <Widget>[
-      //       listItem('用户名', 'agent1221'),
-      //       listItem('用户类型', '代理商'),
-      //       listItem('软件版本', 'V3.0.2'),
-      //       listItem('代理商/安装商代码', 'f121233'),
-      //       listItem('点击获取邀请码', '', (){print('点击了');}),
-      //       logoutBtn()
-      //     ],
-      //   ),
-      // ),
-    );
-  }
-  // 条目数
-  Widget listItem (String label, String value, [Function callback]) {
-    return Container(
-      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xff3390ff)))),
-      padding: EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          callback == null ? Text(label) : InkWell(child: Text(label), onTap: callback,),
-          Text(value),
-        ],
-      ),
     );
   }
   // 退出登录按钮
@@ -138,5 +124,17 @@ class _UserCenter extends State<UserCenter> {
         );
       }
     );
+  }
+  String getRoleName (access) {
+    switch (access) {
+      case 1:
+        return '终端用户';
+      case 2:
+        return '安装商';
+      case 3:
+        return '代理商';
+      default:
+        return '厂商';
+    }
   }
 }
