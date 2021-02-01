@@ -89,8 +89,6 @@ class _SignIn extends State<SignIn> {
                     print(res);
                     // Provider.of<UserModel>(context,listen: false).user = res;
                     context.read<UserModel>().user = res;
-                    var aa = context.read<UserModel>().user;
-                    print(aa.user);
                     Navigator.of(context).pushNamed('/overview');
                   }
                   // print(res);

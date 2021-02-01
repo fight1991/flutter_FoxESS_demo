@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:fluttertoast/fluttertoast.dart';
 import "../../common/MyIcons.dart";
+import "../../dio/UserApi.dart";
 class UserCenter extends StatefulWidget {
   @override
   _UserCenter createState() => _UserCenter();
@@ -52,8 +55,16 @@ class _UserCenter extends State<UserCenter> {
                     child: ListTile(
                       title: Text('退出', style: TextStyle(color: Colors.black)),
                       leading: Icon(MyIcons.close, size: 40.0, color: Colors.red,),
-                      onTap: () {
-                        
+                      onTap: () async {
+                        bool isOut = await showAlertDialog();
+                        if (isOut) {
+                          var res = await UserApi.logOut();
+                          if (res) {
+                            // 确认框
+                            Fluttertoast.showToast(msg: '注销成功');
+                            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                          }
+                        }
                       },
                     )
                   ),
@@ -104,6 +115,28 @@ class _UserCenter extends State<UserCenter> {
         shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         onPressed: (){}
       ),
+    );
+  }
+  Future<bool> showAlertDialog () {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text('确定要退出吗?'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('取消'),
+              // 关闭对话框
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            FlatButton(
+              child: Text('确定'),
+              // 关闭对话框并返回true
+              onPressed: () => Navigator.of(context).pop(true),
+            )
+          ],
+        );
+      }
     );
   }
 }

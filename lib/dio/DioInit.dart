@@ -43,8 +43,8 @@ class DioInit {
         //...If no token, request token firstly.
         // Response response = await dio.get("/token");
         //Set the token to headers
-        options.headers["token"] = Global.profile.token;
-        options.headers["lang"] = Global.profile.locale;
+        options.headers["token"] = Global.profile.user.token;
+        options.headers["lang"] = 'zh_CN';
         return options; //continue
       },
       onResponse: (Response response) async{
