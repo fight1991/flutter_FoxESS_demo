@@ -111,6 +111,7 @@ class _UserInfo extends State<UserInfo> {
           listItem(
             title: '代理商代码',
             trailing: _initCode,
+            margin: EdgeInsets.only(top: 10.0),
           ),
           listItem(
             title: '获取邀请码',
