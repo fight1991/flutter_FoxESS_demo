@@ -17,7 +17,7 @@ class _ForgetPw extends State<ForgetPw> {
   TextEditingController _newPwdConfirm = TextEditingController();
   Timer _timer;
   String timerTxt = '获取验证码';
-  int _count = 10;
+  int _count = 60;
   @override
   void dispose() {
     if (_timer != null) {
@@ -163,7 +163,7 @@ class _ForgetPw extends State<ForgetPw> {
           timerTxt = '0${_count}S';
         }
         if (_count < 0) {
-          _count = 10;
+          _count = 60;
           timerTxt = '获取验证码';
           timer.cancel();
           _timer = null;
