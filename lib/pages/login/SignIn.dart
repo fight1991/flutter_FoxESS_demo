@@ -86,7 +86,6 @@ class _SignIn extends State<SignIn> {
                   });
                   if (null != res) {
                     // 持久化用户信息
-                    print(res);
                     // Provider.of<UserModel>(context,listen: false).user = res;
                     context.read<UserModel>().user = res;
                     Navigator.of(context).pushNamed('/overview');
