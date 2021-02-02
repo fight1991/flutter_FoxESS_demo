@@ -69,5 +69,13 @@ class _Login extends State<Login> {
         )
       );
     }
+    if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ForgetPw()
+        )
+      );
+    }
   }
 }
