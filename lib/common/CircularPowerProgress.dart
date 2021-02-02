@@ -2,7 +2,8 @@ import "package:flutter/material.dart";
 import './MyCircularProgress.dart';
 class CircularPowerProgress extends StatelessWidget {
   final String currentPower;
-  CircularPowerProgress({Key key, this.currentPower}):super(key: key);
+  final double value;
+  CircularPowerProgress({Key key, this.currentPower, this.value = 0}):super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +32,7 @@ class CircularPowerProgress extends StatelessWidget {
             backgroundColor: Colors.white,
             strokeWidth: 15.0,
             colors: [Colors.blue, Colors.blue],
-            value: .5,
+            value: value,
           ),
           Container(
             alignment: Alignment.center,

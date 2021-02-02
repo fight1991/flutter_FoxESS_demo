@@ -12,7 +12,7 @@ class PowerTitle extends StatelessWidget {
         children: <Widget>[
           Icon(MyIcons.elec, color: Color(0xff3390ff),),
           Text(label),
-          Expanded(child: Text(value, textAlign: TextAlign.center))
+          Expanded(child: Text(value, textAlign: TextAlign.right))
         ],
       )
     );

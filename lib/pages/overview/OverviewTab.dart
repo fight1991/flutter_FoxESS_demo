@@ -3,6 +3,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../common/CircularPowerProgress.dart';
 import '../../common/PowerTitle.dart';
 import '../../common/MyIcons.dart';
+import '../../dio/PlantApi.dart';
 class OverviewTab extends StatefulWidget {
   @override
   _OverviewTab createState() => _OverviewTab();
@@ -14,6 +15,18 @@ class _OverviewTab extends State<OverviewTab> {
     {'item': '不正常', 'num': 3},
     {'item': '离线', 'num': 8},
   ];
+  String currentP = '';
+  String capacity = '';
+  double percent = 0;
+  Map statusObj = {
+    'todayG': '--', // 今日发电
+    'allG': '--', // 累计发电
+  };
+  @override
+  void initState() {
+    getEarningAll();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +44,7 @@ class _OverviewTab extends State<OverviewTab> {
       ),
       body: ListView(
         children: <Widget>[
-          CircularPowerProgress(currentPower: '323.40',),
+          CircularPowerProgress(currentPower: currentP, value: percent,),
           todayAndTotalPower(),
           lineBottom(),
           mySwiper(swiperList)
@@ -47,15 +60,15 @@ class _OverviewTab extends State<OverviewTab> {
         children: <Widget>[
           PowerTitle(
             label: '今日发电(kWh)',
-            value: '5555.55'
+            value: statusObj['todayG']
           ),
           PowerTitle(
             label: '累计发电(kWh)',
-            value: '552355.55'
+            value: statusObj['allG']
           ),
           PowerTitle(
             label: '组件容量(kW)',
-            value: '444.55'
+            value: capacity
           ),
         ]
       ),
@@ -104,5 +117,25 @@ class _OverviewTab extends State<OverviewTab> {
         ),
       ),
     );
+  }
+  getEarningAll () async{
+    var res = await PlantApi.earnings();
+    if (res['errno'] == 0) {
+      var temp = res['result'] as Map;
+      var tempPower = temp['power'];
+      var tempCapa = temp['systemCapacity'];
+      var tempPercent = 0;
+      if (tempCapa > 0) {
+        tempPercent = (tempPower*100 / tempCapa).abs().ceil();
+        print(tempPercent);
+      }
+      setState(() {
+        statusObj['todayG'] = temp['generation']['today'].toStringAsFixed(2);
+        statusObj['allG'] = temp['generation']['cumulate'].toStringAsFixed(2);
+        capacity = tempCapa.toStringAsFixed(2);
+        currentP = tempPower.toStringAsFixed(2);
+        percent = tempPercent / 100;
+      });
+    }
   }
 }
