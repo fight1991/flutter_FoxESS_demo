@@ -42,13 +42,16 @@ class _OverviewTab extends State<OverviewTab> {
           )
         ],
       ),
-      body: ListView(
-        children: <Widget>[
-          CircularPowerProgress(currentPower: currentP, value: percent,),
-          todayAndTotalPower(),
-          lineBottom(),
-          mySwiper(swiperList)
-        ]
+      body: RefreshIndicator(
+        onRefresh: getEarningAll,
+        child: ListView(
+          children: <Widget>[
+            CircularPowerProgress(currentPower: currentP, value: percent,),
+            todayAndTotalPower(),
+            lineBottom(),
+            mySwiper(swiperList)
+          ]
+        ),
       )
     );
   }
@@ -118,7 +121,7 @@ class _OverviewTab extends State<OverviewTab> {
       ),
     );
   }
-  getEarningAll () async{
+  Future<Null>getEarningAll () async{
     var res = await PlantApi.earnings();
     if (res['errno'] == 0) {
       var temp = res['result'] as Map;
