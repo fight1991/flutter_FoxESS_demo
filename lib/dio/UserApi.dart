@@ -22,13 +22,13 @@ class UserApi {
     return resp['errno'] == 0;
   }
   // 用户重置密码
-  static Future<dynamic> restPw(data) async {
+  static Future<bool> restPw(data) async {
     var res = await Fetch.post(
       path: '/c/v0/user/reset',
       data: data
     );
     var resp = json.decode(res.toString());
-    return resp;
+    return resp['errno'] == 0;
   }
   // 获取验证码
   static Future<dynamic> getCode(data) async {

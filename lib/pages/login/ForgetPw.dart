@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "dart:async";
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hybridApp/dio/UserApi.dart';
+import "../../util/index.dart";
 import "./Validate.dart";
 
 class ForgetPw extends StatefulWidget {
@@ -11,9 +13,20 @@ class _ForgetPw extends State<ForgetPw> {
   GlobalKey _formKey = GlobalKey<FormState>();
   TextEditingController _username = TextEditingController();
   TextEditingController _code = TextEditingController();
-  TextEditingController _pwd = TextEditingController();
-  TextEditingController _pwdConfirm = TextEditingController();
-  bool isAgree = true;
+  TextEditingController _newPwd = TextEditingController();
+  TextEditingController _newPwdConfirm = TextEditingController();
+  Timer _timer;
+  String timerTxt = '获取验证码';
+  int _count = 10;
+  @override
+  void dispose() {
+    if (_timer != null) {
+      if (_timer.isActive) {
+        _timer.cancel();
+      }
+    }
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,8 +68,23 @@ class _ForgetPw extends State<ForgetPw> {
                 labelText: '验证码',
                 icon: Text('*', style: TextStyle(color: Colors.red),),
                 suffixIcon: FlatButton(
-                  child: Text('获取验证码'),
-                  onPressed: (){},
+                  child: Text(timerTxt),
+                  onPressed: () async {
+                    if (_username.text.trim().length == 0) {
+                      Fluttertoast.showToast(msg: '用户名不能为空!');
+                      return;
+                    }
+                    if (_timer != null) return;
+                    // 发送验证码
+                    var res = await UserApi.getCode({
+                      'user': _username.text
+                    });
+                    if (res['errno'] == 0) {
+                      Fluttertoast.showToast(msg: '发送成功!');
+                      // 开启定时器
+                      myTimer();
+                    }
+                  },
                   splashColor: Colors.black12,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))
                 )
@@ -67,7 +95,7 @@ class _ForgetPw extends State<ForgetPw> {
             ),
             TextFormField(
               style: TextStyle(color: Colors.black),
-              controller: _pwd,
+              controller: _newPwd,
               decoration: InputDecoration(
                 labelText: '密码',
                 icon: Text('*', style: TextStyle(color: Colors.red),)
@@ -78,7 +106,7 @@ class _ForgetPw extends State<ForgetPw> {
             ),
             TextFormField(
               style: TextStyle(color: Colors.black),
-              controller: _pwdConfirm,
+              controller: _newPwdConfirm,
               decoration: InputDecoration(
                 labelText: '确认密码',
                 icon: Text('*', style: TextStyle(color: Colors.red),)
@@ -97,7 +125,19 @@ class _ForgetPw extends State<ForgetPw> {
                   var _state = _formKey.currentState as FormState;
                   bool isPass = _state.validate();
                   if (isPass) {
-                    
+                    if (_newPwd.text != _newPwdConfirm.text) {
+                      Fluttertoast.showToast(msg: '两次输入的密码不一致');
+                      return;
+                    }
+                    bool res = await UserApi.restPw({
+                      'newPassword': Util.md5Encode(_newPwd.text),
+                      'user': _username.text,
+                      'captcha': _code.text
+                    });
+                    if (res) {
+                      Fluttertoast.showToast(msg: '重置成功,请重新登录!');
+                      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false, arguments: _username.text);
+                    }
                     // 下一步
                   } else {
                     print('未验证通过');
@@ -110,5 +150,25 @@ class _ForgetPw extends State<ForgetPw> {
         ),
       )
     );
+  }
+  myTimer () {
+    setState(() {
+      timerTxt = '${_count}S';
+    });
+    _timer = Timer.periodic(Duration(seconds : 1), (timer) {
+      _count--;
+      setState(() {
+        timerTxt = '${_count}S';
+        if (_count < 10 && _count > 0 ) {
+          timerTxt = '0${_count}S';
+        }
+        if (_count < 0) {
+          _count = 10;
+          timerTxt = '获取验证码';
+          timer.cancel();
+          _timer = null;
+        }
+      });
+    });
   }
 }
