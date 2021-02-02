@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:fluttertoast/fluttertoast.dart';
+import "../../common/Global.dart";
 import "../../dio/UserApi.dart";
 class UserInfo extends StatefulWidget {
   @override
@@ -8,9 +9,18 @@ class UserInfo extends StatefulWidget {
 }
 class _UserInfo extends State<UserInfo> {
   int access;
-  TextEditingController _codeController = TextEditingController();
+  // 终端永用户加入其它组织的代码
+  TextEditingController _endUserJoinController = TextEditingController();
+  // 代理商/安装商代码(显示)
+  String _initCode = '';
+  // 代理商邀请码
+  String _agentCode = '';
   @override
   void initState() {
+    access = Global.profile.user.access;
+    if (access > 1) {
+      getInviteCodeApi('installer');
+    }
     super.initState();
   }
   @override
@@ -26,7 +36,23 @@ class _UserInfo extends State<UserInfo> {
         color: Colors.grey[200],
         padding: EdgeInsets.symmetric(vertical:10.0),
         child: ListView(
-          children: listInfo(userInfo)
+          children: <Widget>[
+            listItem(
+              title: '用户名',
+              trailing: userInfo['name'],
+              showBorder: true
+            ),
+            listItem(
+              title: '用户类型',
+              trailing: userInfo['roleName'],
+              showBorder: true
+            ),
+            listItem(
+              title: '软件版本',
+              trailing: 'V2.0.0',
+            ),
+            ...listInfo(userInfo)
+          ]
         ),
       )
     );
@@ -50,25 +76,11 @@ class _UserInfo extends State<UserInfo> {
       case 1:
         return [
           listItem(
-            title: '用户名',
-            trailing: userInfo['name'],
-            showBorder: true
-          ),
-          listItem(
-            title: '用户类型',
-            trailing: userInfo['roleName'],
-            showBorder: true
-          ),
-          listItem(
-            title: '软件版本',
-            trailing: 'V2.0.0',
-          ),
-          listItem(
             title: '关联安装商/代理商',
             icon: Icon(Icons.link, size: 30.0, color: Colors.green,),
             margin: EdgeInsets.only(top: 10.0),
             onTap: () async{
-              bool isPass = await showCodeDialog(_codeController);
+              bool isPass = await showCodeDialog('安装商/代理商代码');
               if (isPass) {
                 joinApi('user');
               }
@@ -78,40 +90,52 @@ class _UserInfo extends State<UserInfo> {
       case 2:
         return [
           listItem(
-            title: '用户名',
-            trailing: userInfo['name'],
+            title: '安装商代码',
+            trailing: _initCode,
+            margin: EdgeInsets.only(top: 10.0),
           ),
           listItem(
-            title: '用户类型',
-            trailing: userInfo['roleName'],
-          ),
+            title: '关联代理商',
+            margin: EdgeInsets.only(top: 10.0),
+            icon: Icon(Icons.link, size: 30.0, color: Colors.green,),
+            onTap: () async{
+              bool isPass = await showCodeDialog('代理商代码');
+              if (isPass) {
+                joinApi('installer');
+              }
+            },
+          )
         ];
       case 3:
         return [
           listItem(
-            title: '用户名',
-            trailing: userInfo['name'],
+            title: '代理商代码',
+            trailing: _initCode,
           ),
           listItem(
-            title: '用户类型',
-            trailing: userInfo['roleName'],
-          ),
+            title: '获取邀请码',
+            icon: Icon(Icons.code, size: 30.0, color: Colors.green,),
+            margin: EdgeInsets.only(top: 10.0),
+            onTap: () async{
+              getInviteCodeApi('agent');
+            },
+          )
         ];
       default:
         return [Container()];
     }
   }
   // 终端用户关联安装商/代理商
-  Future<bool> showCodeDialog (codeController) {
+  Future<bool> showCodeDialog (label) {
     return showDialog<bool> (
       context: context,
       builder: (context) {
         return CupertinoAlertDialog(
           // title: Text('安装商/代理商代码'),
           content: TextField(
-            controller: codeController,
+            controller: _endUserJoinController,
             decoration: InputDecoration(
-              hintText: '安装商/代理商代码'
+              hintText: label
             ),
           ),
           actions: <Widget>[
@@ -124,7 +148,7 @@ class _UserInfo extends State<UserInfo> {
               child: Text('确定'),
               // 关闭对话框并返回true
               onPressed: () {
-                if (codeController.text.trim().length == 0) {
+                if (_endUserJoinController.text.trim().length == 0) {
                   Fluttertoast.showToast(msg: '代码不能为空');
                 } else {
                   Navigator.of(context).pop(true);
@@ -139,11 +163,28 @@ class _UserInfo extends State<UserInfo> {
   // 加入组织api
   void joinApi (type) async {
     var res = await UserApi.joinOrgans({
-      'code': _codeController.text,
+      'code': _endUserJoinController.text,
       'organType': type
     });
     if (res) {
       Fluttertoast.showToast(msg: '操作成功');
+    }
+  }
+  // 获取邀请码api
+  void getInviteCodeApi (type) async{
+    var res = await UserApi.getOrganCode({
+      'organType': type
+    });
+    if (res != null) {
+      if (type == 'installer') {
+        setState(() {
+          _initCode = res['code'];
+        });
+      } else {
+        setState((){
+          _agentCode = res['code'];
+        });
+      }
     }
   }
 }

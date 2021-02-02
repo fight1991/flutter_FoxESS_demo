@@ -57,4 +57,13 @@ class UserApi {
     var resp = json.decode(res.toString());
     return resp['errno'] == 0;
   }
+  // 获取代理商/安装商的组织代码 和代理商邀请码
+  static Future<dynamic> getOrganCode(data) async {
+    var res = await Fetch.get(
+      path: '/c/v0/organs/invitation',
+      data: data
+    );
+    var resp = json.decode(res.toString());
+    return resp['result'];
+  }
 }
