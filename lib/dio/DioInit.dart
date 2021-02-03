@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:dio/adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../common/Global.dart';
 
@@ -33,13 +32,6 @@ class DioInit {
     };
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (Options options) async{
-        EasyLoading.instance
-          ..maskColor = Colors.transparent
-          ..indicatorType = EasyLoadingIndicatorType.threeBounce;
-        EasyLoading.show(
-          status: 'loading...',
-          maskType: EasyLoadingMaskType.custom,
-        );
         //...If no token, request token firstly.
         // Response response = await dio.get("/token");
         //Set the token to headers
@@ -55,11 +47,18 @@ class DioInit {
             backgroundColor: Colors.black45
           );
         }
-        EasyLoading.dismiss();
         return resp;
       },
       onError: (DioError err) {
-        EasyLoading.dismiss();
+        print('请求错误-->>>>>>>>>>>>>>>--------------------------------');
+        if (err.response != null) {
+          print(err.response.data);
+          print(err.response.headers);
+          print(err.response.request);
+        } else {
+          print(err.request);
+          print(err.message);
+        }
       }
     ));
   }
