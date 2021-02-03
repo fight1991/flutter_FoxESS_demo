@@ -9,14 +9,10 @@ class OverviewTab extends StatefulWidget {
   _OverviewTab createState() => _OverviewTab();
 }
 class _OverviewTab extends State<OverviewTab> {
-  List<Map> swiperList = [
-    {'item': '全部', 'num': 134},
-    {'item': '正常', 'num': 123},
-    {'item': '不正常', 'num': 3},
-    {'item': '离线', 'num': 8},
-  ];
-  String currentP = '';
-  String capacity = '';
+  List<String> swiperKeys = ['全部', '正常', '不正常', '离线'];
+  List<dynamic> swiperValues = [0, 0, 0, 0];
+  String currentP = '0';
+  String capacity = '0';
   double percent = 0;
   Map statusObj = {
     'todayG': '--', // 今日发电
@@ -24,7 +20,7 @@ class _OverviewTab extends State<OverviewTab> {
   };
   @override
   void initState() {
-    getEarningAll();
+    getAll(true);
     super.initState();
   }
   @override
@@ -43,13 +39,13 @@ class _OverviewTab extends State<OverviewTab> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: getEarningAll,
+        onRefresh: ()async{return getAll(false);},
         child: ListView(
           children: <Widget>[
             CircularPowerProgress(currentPower: currentP, value: percent,),
             todayAndTotalPower(),
             lineBottom(),
-            mySwiper(swiperList)
+            mySwiper()
           ]
         ),
       )
@@ -82,7 +78,7 @@ class _OverviewTab extends State<OverviewTab> {
     return Divider(color: Colors.blue,thickness: 2.0, indent: 40.0, endIndent: 40.0,);
   }
   // 轮播图
-  Widget mySwiper (List list) {
+  Widget mySwiper () {
     return Container(
       width: 500.0,
       height: 200.0,
@@ -100,17 +96,17 @@ class _OverviewTab extends State<OverviewTab> {
               children: <Widget>[
                 Align(
                   alignment: Alignment.topLeft,
-                  child: Text(list[index]['item'], style: TextStyle(fontSize: 30.0),),
+                  child: Text(swiperKeys[index], style: TextStyle(fontSize: 30.0),),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: Text(list[index]['num'].toString(), style: TextStyle(fontSize: 52.0, color: Colors.white, shadows: [Shadow(color: Colors.black54, offset: Offset(2.0, 1.0))]),),
+                  child: Text(swiperValues[index].toString(), style: TextStyle(fontSize: 52.0, color: Colors.white, shadows: [Shadow(color: Colors.black54, offset: Offset(2.0, 1.0))]),),
                 )
               ],
             ),
           );
         },
-        itemCount: list.length,
+        itemCount: swiperKeys.length,
         outer: true,
         pagination: SwiperPagination(
           builder: DotSwiperPaginationBuilder(
@@ -121,11 +117,20 @@ class _OverviewTab extends State<OverviewTab> {
       ),
     );
   }
-  Future<Null>getEarningAll () async{
-    var res = await PlantApi.earnings();
+  Future<Null>getAll (loading) async{
+    var res = await PlantApi.all(loading);
+    if (null != res[0]) {
+      computeEarningData(res[0]);
+    }
+    if (null != res[1]) {
+      computeStatusData(res[1]);
+    }
+  }
+  // 处理收益相关数据
+  computeEarningData (Map<String, dynamic> res) {
     if (res['errno'] == 0) {
       var temp = res['result'] as Map;
-      var tempPower = temp['power'];
+      var tempPower = temp['power'].abs();
       var tempCapa = temp['systemCapacity'];
       var tempPercent = 0;
       if (tempCapa > 0) {
@@ -138,6 +143,19 @@ class _OverviewTab extends State<OverviewTab> {
         capacity = tempCapa.toStringAsFixed(2);
         currentP = tempPower.toStringAsFixed(2);
         percent = tempPercent / 100;
+      });
+    }
+  }
+  // 处理状态相关数据
+  computeStatusData (Map<String, dynamic> res) {
+    if (res['errno'] == 0) {
+      var tempValue = [];
+      var tempR = res['result'] as Map;
+      tempR.forEach((key, value) {
+        tempValue.add(value);
+      });
+      setState(() {
+        swiperValues = tempValue;
       });
     }
   }

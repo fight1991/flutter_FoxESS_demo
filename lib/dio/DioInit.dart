@@ -52,6 +52,7 @@ class DioInit {
       onError: (DioError err) {
         print('请求错误-->>>>>>>>>>>>>>>--------------------------------');
         if (err.response != null) {
+          print(err.response.statusCode);
           print(err.response.data);
           print(err.response.headers);
           print(err.response.request);
