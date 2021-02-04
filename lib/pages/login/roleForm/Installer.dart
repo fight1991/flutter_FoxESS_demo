@@ -5,9 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hybridApp/dio/UserApi.dart';
 import "package:provider/provider.dart";
 import "../BaseDataProvider.dart";
-
-
-import "../../../common/MyIcons.dart";
 class Installer extends StatefulWidget {
   final String type;
   Installer({this.type});

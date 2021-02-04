@@ -5,9 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hybridApp/dio/UserApi.dart';
 import "package:provider/provider.dart";
 import "../BaseDataProvider.dart";
-
-
-import "../../../common/MyIcons.dart";
+import "package:hybridApp/common/MyIcons.dart";
 class EndUser extends StatefulWidget {
   final String type;
   EndUser({this.type});

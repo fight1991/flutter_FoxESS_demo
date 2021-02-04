@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "dart:async";
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hybridApp/dio/UserApi.dart';
-import "../../util/index.dart";
+import "package:hybridApp/util/index.dart";
 import "./Validate.dart";
 
 class ForgetPw extends StatefulWidget {

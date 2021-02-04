@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import '../../common/CircularPowerProgress.dart';
-import '../../common/PowerTitle.dart';
+import 'package:hybridApp/common/CircularPowerProgress.dart';
+import 'package:hybridApp/common/PowerTitle.dart';
 class BaseInfoTab extends StatelessWidget {
   final String appBarTitle;
   BaseInfoTab({Key key, @required this.appBarTitle}):super(key: key);

@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:hybridApp/common/CircularPowerProgress.dart';
-import "../../common/CircularPowerProgress.dart";
-import "../../common/PowerTitle.dart";
+import "package:hybridApp/common/PowerTitle.dart";
 class ElecTab extends StatefulWidget {
   @override
   _ElecTab createState() => _ElecTab();

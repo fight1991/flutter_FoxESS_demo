@@ -1,7 +1,7 @@
 
 import "package:flutter/material.dart";
-import "../../common/MyIcons.dart";
-import "../../common/ListBoxItem.dart";
+import "package:hybridApp/common/MyIcons.dart";
+import "package:hybridApp/common/ListBoxItem.dart";
 class DeviceList extends StatefulWidget {
   final type;
   DeviceList({this.type});

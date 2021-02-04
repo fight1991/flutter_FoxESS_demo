@@ -1,8 +1,9 @@
 
 import "package:flutter/material.dart";
-import "../../dio/PlantApi.dart";
-import '../../common/ListBoxItem.dart';
-import "../../common/MyIcons.dart";
+import "package:hybridApp/dio/PlantApi.dart";
+import "package:hybridApp/util/index.dart";
+import 'package:hybridApp/common/ListBoxItem.dart';
+import "package:hybridApp/common/MyIcons.dart";
 class StationList extends StatefulWidget {
   final int status;
   StationList({this.status});
@@ -25,13 +26,8 @@ class _StationList extends State<StationList> {
     print(widget.status);
     initList();
     _scrollController.addListener(() {
-      // print(_scrollController.position.maxScrollExtent);
-      // print(_scrollController.position.pixels);
-
       var bottom = _scrollController.position.maxScrollExtent - _scrollController.position.pixels;
-      print(bottom);
-      
-      if (bottom < toBottom) {
+      if (bottom < toBottom) { // 到达底部50的位置开始请求
         print('开始请求了');
         pullLoad();
       }
@@ -78,21 +74,23 @@ class _StationList extends State<StationList> {
   // 条目数
   Widget listBox() {
     return Expanded(
-      child: ListView.builder(
-        itemCount: plantList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return listBoxItem(plantList[index]);
-        },
+      child: ListView(
         controller: _scrollController,
-      )
+        children: [
+          ...plantList.map((v) =>listBoxItem(v)).toList(),
+          Center(
+            child: Text(hasMore ? '上拉加载更多': '没有更多数据了',style: TextStyle(color: Colors.black87,fontSize: 12.0),)
+          )
+        ],
+      ),
     );
   }
   Widget listBoxItem (Map<String,dynamic> obj) {
     return ListBoxItem(
       name: obj['name'],
       time: obj['createdDate'],
-      elec: obj['generationToday'].toString(),
-      power: obj['power'].toString(),
+      elec: Util.setDataAbs(obj['generationToday']),
+      power: Util.setDataAbs(obj['power']),
       mainImg: Image(
         image: AssetImage("images/pv_icon.png"),
         width: 70.0,

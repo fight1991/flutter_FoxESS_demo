@@ -19,4 +19,8 @@ class Util {
     // 这里其实就是 digest.toString()
     return hex.encode(digest.bytes);
   }
+  // 保留2位有效数字,并取绝对值
+  static setDataAbs(data) {
+    return data.abs().toStringAsFixed(2);
+  }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:fluttertoast/fluttertoast.dart';
-import "../../common/Global.dart";
-import "../../dio/UserApi.dart";
+import "package:hybridApp/common/Global.dart";
+import "package:hybridApp/dio/UserApi.dart";
 class UserInfo extends StatefulWidget {
   @override
   _UserInfo createState() => _UserInfo();

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hybridApp/models/cacheConfig.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/profile.dart';
-import '../dio/DioInit.dart';
+import 'package:hybridApp/models/profile.dart';
+import 'package:hybridApp/dio/DioInit.dart';
 const _themes = <MaterialColor>[
   Colors.blue,
   Colors.cyan,

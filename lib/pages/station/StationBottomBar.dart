@@ -1,6 +1,6 @@
 
 import "package:flutter/material.dart";
-import "../../common/MyIcons.dart";
+import "package:hybridApp/common/MyIcons.dart";
 import 'BaseInfoTab.dart';
 import 'DeviceTab.dart';
 import 'AlarmTab.dart';

@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:flutter_swiper/flutter_swiper.dart';
-import '../../common/CircularPowerProgress.dart';
-import '../../common/PowerTitle.dart';
-import '../../common/MyIcons.dart';
-import '../../dio/PlantApi.dart';
+import 'package:hybridApp/common/CircularPowerProgress.dart';
+import 'package:hybridApp/common/PowerTitle.dart';
+import 'package:hybridApp/common/MyIcons.dart';
+import 'package:hybridApp/dio/PlantApi.dart';
 class OverviewTab extends StatefulWidget {
   @override
   _OverviewTab createState() => _OverviewTab();

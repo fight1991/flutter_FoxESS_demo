@@ -1,10 +1,10 @@
 
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "../../provider/UserModel.dart";
+import "package:hybridApp/provider/UserModel.dart";
 import "./Validate.dart";
-import "../../util/index.dart";
-import '../../dio/UserApi.dart';
+import "package:hybridApp/util/index.dart";
+import 'package:hybridApp/dio/UserApi.dart';
 class SignIn extends StatefulWidget {
   SignIn({this.callback});
   final Function callback;
