@@ -17,7 +17,8 @@ class Global {
   // 本地化存储
   static SharedPreferences _prefs;
   static Profile profile = Profile();
-
+  // 想要直接在任何地方都能跳转到某一个页面，那个我们首先要创建一个全局的GlobalKey
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
   // 网络缓存对象
   // static NetCache netCache = NetCache();
 

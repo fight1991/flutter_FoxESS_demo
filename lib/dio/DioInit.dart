@@ -46,6 +46,11 @@ class DioInit {
             msg: "错误码${resp['errno']}",
             backgroundColor: Colors.black45
           );
+          // token不合法或失效
+          if ([41808, 41809, 41810].contains(resp['errno'])) {
+            // Navigator.pushNamedAndRemoveUntil(null, '/', (route) => false);
+            Global.navigatorKey.currentState.pushNamedAndRemoveUntil('/', (route) => false);
+          }
         }
         return resp;
       },
@@ -63,5 +68,4 @@ class DioInit {
       }
     ));
   }
-  
 }

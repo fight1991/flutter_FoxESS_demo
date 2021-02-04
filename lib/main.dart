@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'FoxESS',
         initialRoute: '/',
+        navigatorKey: Global.navigatorKey,
         debugShowCheckedModeBanner: false,
         routes: {
           '/': (context) => Login(),

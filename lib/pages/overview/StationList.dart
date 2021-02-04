@@ -79,7 +79,7 @@ class _StationList extends State<StationList> {
         children: [
           ...plantList.map((v) =>listBoxItem(v)).toList(),
           Center(
-            child: Text(hasMore ? '上拉加载更多': '没有更多数据了',style: TextStyle(color: Colors.black87,fontSize: 12.0),)
+            child: Text(hasMore ? '上拉加载更多': '没有更多数据了',style: TextStyle(color: Colors.black54,fontSize: 12.0),)
           )
         ],
       ),
@@ -96,7 +96,7 @@ class _StationList extends State<StationList> {
         width: 70.0,
         fit: BoxFit.cover
       ),
-      headLeftIcon: Icon(MyIcons.abnormal, color: Colors.red,),
+      headLeftIcon: statusIcon(obj['status']),
       headRightIcon: IconButton(
         splashColor: Colors.grey[100],
         icon: Icon(MyIcons.more, color: Color(0xff3390ff),),
@@ -205,6 +205,17 @@ class _StationList extends State<StationList> {
       return res['plants'];
     } else {
       return [];
+    }
+  }
+  statusIcon (int status) {
+    // 1正常 2异常 3离线
+    switch (status) {
+      case 1:
+        return Icon(MyIcons.success, color: Colors.green,);
+      case 2: 
+        return Icon(MyIcons.abnormal, color: Colors.red,);
+      default:
+        return Icon(MyIcons.offline, color: Colors.black54,);
     }
   }
 }
