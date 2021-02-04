@@ -25,9 +25,9 @@ class _OverviewBottomBar extends State<OverviewBottomBar> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(MyIcons.data_overview), title: Text('总览')),
-          BottomNavigationBarItem(icon: Icon(MyIcons.station), title: Text('我的电站')),
-          BottomNavigationBarItem(icon: Icon(MyIcons.user), title: Text('我')),
+          BottomNavigationBarItem(icon: Icon(MyIcons.data_overview), label: '总览'),
+          BottomNavigationBarItem(icon: Icon(MyIcons.station), label: '我的电站'),
+          BottomNavigationBarItem(icon: Icon(MyIcons.user), label: '我'),
         ],
         fixedColor: Color(0xff3390FF),
         onTap: (int index) {

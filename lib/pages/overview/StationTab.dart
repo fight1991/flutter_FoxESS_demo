@@ -36,10 +36,10 @@ class _StationTab extends State<StationTab> with SingleTickerProviderStateMixin{
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          StationList(type: 1),
-          StationList(type: 2),
-          StationList(type: 3),
-          StationList(type: 4),
+          StationList(status: 0),
+          StationList(status: 1),
+          StationList(status: 2),
+          StationList(status: 3),
         ],
       ),
     );

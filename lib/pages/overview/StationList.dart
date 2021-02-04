@@ -1,19 +1,50 @@
 
 import "package:flutter/material.dart";
+import "../../dio/PlantApi.dart";
 import '../../common/ListBoxItem.dart';
 import "../../common/MyIcons.dart";
 class StationList extends StatefulWidget {
-  final type;
-  StationList({this.type});
+  final int status;
+  StationList({this.status});
   @override
   _StationList createState() => _StationList();
 }
 
 class _StationList extends State<StationList> {
+  var currentPage = 1;
+  var pageSize = 10;
+  int toBottom = 50;
+  var total;
+  bool isLoading = true;
+  bool hasMore = true; // 当currentPage * pageSize >= total 没有数据了
+  List plantList = [];
+  TextEditingController _nameController = TextEditingController();
+  ScrollController _scrollController = ScrollController();
+  @override
+  void initState() {
+    print(widget.status);
+    initList();
+    _scrollController.addListener(() {
+      // print(_scrollController.position.maxScrollExtent);
+      // print(_scrollController.position.pixels);
+
+      var bottom = _scrollController.position.maxScrollExtent - _scrollController.position.pixels;
+      print(bottom);
+      
+      if (bottom < toBottom) {
+        print('开始请求了');
+        pullLoad();
+      }
+    });
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    print('传值过来了``````');
-    print(widget.type);
     return Container(
       color: Color(0xfff5f5f5),
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
@@ -35,6 +66,7 @@ class _StationList extends State<StationList> {
         color: Colors.white
       ),
       child: TextField(
+        controller: _nameController,
         decoration: InputDecoration(
           border: InputBorder.none,
           prefixIcon: Icon(Icons.search, color: Colors.black45,),
@@ -47,19 +79,20 @@ class _StationList extends State<StationList> {
   Widget listBox() {
     return Expanded(
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: plantList.length,
         itemBuilder: (BuildContext context, int index) {
-          return listBoxItem(index.toString());
-        }
+          return listBoxItem(plantList[index]);
+        },
+        controller: _scrollController,
       )
     );
   }
-  Widget listBoxItem (String id) {
+  Widget listBoxItem (Map<String,dynamic> obj) {
     return ListBoxItem(
-      name: 'wuxihahah lala',
-      time: '2010/11/24 03:39',
-      elec: '1212.33',
-      power: '444.88',
+      name: obj['name'],
+      time: obj['createdDate'],
+      elec: obj['generationToday'].toString(),
+      power: obj['power'].toString(),
       mainImg: Image(
         image: AssetImage("images/pv_icon.png"),
         width: 70.0,
@@ -72,7 +105,7 @@ class _StationList extends State<StationList> {
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         alignment: Alignment.topCenter,
         onPressed: () async{
-          var opType = await showStationEditDialog(id);
+          var opType = await showStationEditDialog(obj['name']);
           if (opType == 1) {
             print(1); // 编辑操作
             Navigator.of(context).pushNamed('/addStation', arguments: 'edit');
@@ -82,12 +115,12 @@ class _StationList extends State<StationList> {
         }
       ),
       onTap: () {
-        Navigator.pushNamed(context, '/stationTab', arguments: id);
+        Navigator.pushNamed(context, '/stationTab', arguments: obj['stationID']);
       },
     );
   }
   // 电站编辑确认框
-  Future<int> showStationEditDialog (String sn) {
+  Future<int> showStationEditDialog (String name) {
     return showDialog<int> (
       context: context,
       builder: (context) {
@@ -95,7 +128,7 @@ class _StationList extends State<StationList> {
           contentPadding: EdgeInsets.all(0.0),
           titlePadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 0.0),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-          title: Text(sn,textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 22.0),),
+          title: Text(name,textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 22.0),),
           content: Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -136,5 +169,44 @@ class _StationList extends State<StationList> {
         );
       }
     );
+  }
+  // 初始化电站列表
+  initList () async {
+    currentPage = 1;
+    isLoading = true;
+    var temp = await getList();
+    print(temp);
+    setState(() {
+      plantList = temp as List;
+    });
+  }
+  // 上拉加载
+  void pullLoad () async{
+    if (!hasMore || isLoading) return;
+    var temp = await getList();
+    setState(() {
+      plantList = [...plantList, ...temp];
+    });
+  }
+  // 获取电站列表
+  getList () async {
+    var res = await PlantApi.getPlantList({
+      'currentPage': currentPage,
+      'pageSize': pageSize,
+      'condition': {
+        'status': widget.status,
+        'name': _nameController.text
+      }
+    });
+    if (null != res) {
+      print(res);
+      setState(() {
+        hasMore = res['currentPage'] * res['pageSize'] < res['total'];
+        isLoading = false;
+      });
+      return res['plants'];
+    } else {
+      return [];
+    }
   }
 }
