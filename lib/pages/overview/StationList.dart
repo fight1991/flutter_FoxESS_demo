@@ -202,7 +202,6 @@ class _StationList extends State<StationList> with AutomaticKeepAliveClientMixin
       }
     });
     if (null != res) {
-      print(res);
       setState(() {
         hasMore = res['currentPage'] * res['pageSize'] < res['total'];
         isLoading = false;

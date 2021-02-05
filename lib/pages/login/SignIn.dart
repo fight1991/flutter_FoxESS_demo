@@ -12,8 +12,8 @@ class SignIn extends StatefulWidget {
   _SignIn createState() => _SignIn();
 }
 class _SignIn extends State<SignIn> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _pwdController = TextEditingController();
+  TextEditingController _nameController = TextEditingController(text: 'flutterAgent');
+  TextEditingController _pwdController = TextEditingController(text: '123456');
   GlobalKey _formKey = GlobalKey<FormState>();
   bool isRemeber = true;
   @override
