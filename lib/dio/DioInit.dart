@@ -64,6 +64,7 @@ class DioInit {
         } else {
           print(err.request);
           print(err.message);
+          Fluttertoast.showToast(msg: err.message);
         }
       }
     ));

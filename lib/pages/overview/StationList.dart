@@ -8,10 +8,10 @@ class StationList extends StatefulWidget {
   final int status;
   StationList({this.status});
   @override
-  _StationList createState() => _StationList();
+  State createState() => _StationList();
 }
 
-class _StationList extends State<StationList> {
+class _StationList extends State<StationList> with AutomaticKeepAliveClientMixin{
   var currentPage = 1;
   var pageSize = 10;
   int toBottom = 50;
@@ -40,15 +40,20 @@ class _StationList extends State<StationList> {
     super.dispose();
   }
   @override
+  bool get wantKeepAlive => true;
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xfff5f5f5),
-      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-      child: Column(
-        children: <Widget>[
-          searchInput(),
-          listBox()
-        ],
+    return RefreshIndicator(
+      onRefresh: initList,
+      child: Container(
+        color: Color(0xfff5f5f5),
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        child: Column(
+          children: <Widget>[
+            searchInput(),
+            listBox()
+          ],
+        ),
       ),
     );
   }
@@ -75,6 +80,7 @@ class _StationList extends State<StationList> {
   Widget listBox() {
     return Expanded(
       child: ListView(
+        physics: AlwaysScrollableScrollPhysics(),
         controller: _scrollController,
         children: [
           ...plantList.map((v) =>listBoxItem(v)).toList(),
@@ -169,11 +175,10 @@ class _StationList extends State<StationList> {
     );
   }
   // 初始化电站列表
-  initList () async {
+  Future initList () async {
     currentPage = 1;
     isLoading = true;
     var temp = await getList();
-    print(temp);
     setState(() {
       plantList = temp as List;
     });
