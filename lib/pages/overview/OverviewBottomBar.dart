@@ -9,13 +9,15 @@ class OverviewBottomBar extends StatefulWidget {
 }
 class _OverviewBottomBar extends State<OverviewBottomBar> {
   int _selectedIndex = 0;
+  PageController _pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: IndexedStack(
-          index: _selectedIndex,
-          children: <Widget>[
+        child: PageView(
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          children: [
             OverviewTab(),
             StationTab(),
             UserCenter()
@@ -31,6 +33,9 @@ class _OverviewBottomBar extends State<OverviewBottomBar> {
         ],
         fixedColor: Color(0xff3390FF),
         onTap: (int index) {
+          // 会加载中间页
+          // _pageController.animateToPage(index,duration: Duration(milliseconds: 500), curve: Curves.ease);
+          _pageController.jumpToPage(index);
           setState((){
             _selectedIndex = index;
           });

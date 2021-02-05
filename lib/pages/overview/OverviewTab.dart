@@ -8,7 +8,7 @@ class OverviewTab extends StatefulWidget {
   @override
   _OverviewTab createState() => _OverviewTab();
 }
-class _OverviewTab extends State<OverviewTab> {
+class _OverviewTab extends State<OverviewTab> with AutomaticKeepAliveClientMixin {
   List<String> swiperKeys = ['全部', '正常', '不正常', '离线'];
   List<dynamic> swiperValues = [0, 0, 0, 0];
   String currentP = '0';
@@ -23,6 +23,8 @@ class _OverviewTab extends State<OverviewTab> {
     getAll(true);
     super.initState();
   }
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
