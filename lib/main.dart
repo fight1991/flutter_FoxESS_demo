@@ -1,56 +1,56 @@
 import "package:flutter/material.dart";
-import "./dashBoard/index.dart";
-import "./myPlant/index.dart";
-import "./user/index.dart";
-void main() => runApp(MyApp());
+import "package:provider/provider.dart";
+import "./pages/login/BaseDataProvider.dart";
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import "./provider/UserModel.dart";
+import "./common/Global.dart";
+import "./pages/login/Login.dart";
+import "./pages/login/Test.dart";
+import './pages/overview/OverviewBottomBar.dart';
+import './pages/overview/AddStation.dart';
+import './pages/station/StationBottomBar.dart';
+import './pages/device/DeviceTopBar.dart';
+import './pages/remote/RemoteSetting.dart';
+import './pages/user/UserInfo.dart';
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Global.init().then((e) => runApp(MyApp()));
+}
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FoxEss',
-      home: Home(),
-      theme: ThemeData(
-        primaryColor: Color.fromRGBO(4,60,97, 1),
-        textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.white60)
-        ),
-        scaffoldBackgroundColor: Color.lerp(Color.fromRGBO(0,67,107,1), Color.fromRGBO(2,36,59,1), 0.5)
-      ),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('总览'),
-        //   centerTitle: true,
-        // ),
-        body: TabBarView(children: <Widget>[
-          DashBoard(),
-          MyPlant(),
-          User(),
-        ]),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(color: Color.fromRGBO(4,60,97, 1)),
-          height: 50,
-          child: TabBar(
-            indicatorColor: Colors.transparent,
-            unselectedLabelColor: Colors.white70,
-            labelColor: Color.fromRGBO(242,129,2,1),
-            labelStyle: TextStyle(height: 0, fontSize: 10),
-            tabs: <Widget>[
-              Tab(icon: Icon(Icons.dashboard), text: '总览',),
-              Tab(icon: Icon(Icons.speaker), text: '我的电站',),
-              Tab(icon: Icon(Icons.person), text: '我的',),
-            ],
-            // labelColor: Colors.black,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserModel(),),
+        ChangeNotifierProvider(create: (_) => BaseData())
+      ],
+      child: MaterialApp(
+        title: 'FoxESS',
+        initialRoute: '/',
+        navigatorKey: Global.navigatorKey,
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/': (context) => Login(),
+          '/test': (context) => Test(),
+          '/overview': (context) => OverviewBottomBar(),
+          '/addStation': (context) => AddStation(),
+          '/stationTab': (context) => StationBottomBar(),
+          '/deviceTab': (context) => DeviceTopBar(),
+          '/remote': (context) => RemoteSetting(),
+          '/userInfo': (context) => UserInfo(),
+        },
+        theme: ThemeData(
+          // primaryColor: Colors.white,
+          splashColor: Colors.transparent, // 点击时的高亮效果设置为透明
+          highlightColor: Colors.transparent, // 长按时的扩散效果设置为透明
+          textTheme: TextTheme(
+            subtitle1: TextStyle(fontSize: 18.0),
+            bodyText1: TextStyle(fontSize: 18.0),
+            bodyText2: TextStyle(fontSize: 14.0),
           ),
-        )
+          scaffoldBackgroundColor: Colors.white
+        ),
+        builder: EasyLoading.init(),
       ),
     );
   }
