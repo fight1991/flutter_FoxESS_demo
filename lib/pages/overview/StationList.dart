@@ -5,12 +5,17 @@ import "package:hybridApp/util/index.dart";
 import 'package:hybridApp/common/ListBoxItem.dart';
 import "package:hybridApp/common/MyIcons.dart";
 
-GlobalKey<_StationList> stationListKey = GlobalKey();
+Map<String, GlobalKey<_StationList>> childKey = {
+  'key0': GlobalKey(),
+  'key1': GlobalKey(),
+  'key2': GlobalKey(),
+  'key3': GlobalKey(),
+};
 class StationList extends StatefulWidget {
   final int status;
-  StationList({this.status});
+  StationList({this.status, Key key}):super(key: key);
   @override
-  State createState() => _StationList();
+  _StationList createState() => _StationList();
 }
 
 class _StationList extends State<StationList> with AutomaticKeepAliveClientMixin{
