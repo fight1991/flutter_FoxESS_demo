@@ -95,7 +95,7 @@ packages:
   charcode:
     dependency: transitive
     description:
-      name: characters
+      name: charcode
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.0-nullsafety.1"
@@ -123,24 +123,24 @@ packages:
   collection:
     dependency: transitive
     description:
-      name: charcode
+      name: collection
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.15.0-nullsafety.3"
   convert:
     dependency: transitive
     description:
-      name: clock
+      name: convert
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
   crypto:
     dependency: "direct main"
     description:
-      name: collection
+      name: crypto
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   csslib:
     dependency: transitive
     description:
