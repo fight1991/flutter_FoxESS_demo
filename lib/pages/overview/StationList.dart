@@ -4,6 +4,8 @@ import "package:hybridApp/dio/PlantApi.dart";
 import "package:hybridApp/util/index.dart";
 import 'package:hybridApp/common/ListBoxItem.dart';
 import "package:hybridApp/common/MyIcons.dart";
+
+GlobalKey<_StationList> stationListKey = GlobalKey();
 class StationList extends StatefulWidget {
   final int status;
   StationList({this.status});
@@ -19,7 +21,6 @@ class _StationList extends State<StationList> with AutomaticKeepAliveClientMixin
   bool isLoading = true;
   bool hasMore = true; // 当currentPage * pageSize >= total 没有数据了
   List plantList = [];
-  TextEditingController _nameController = TextEditingController();
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
@@ -50,28 +51,8 @@ class _StationList extends State<StationList> with AutomaticKeepAliveClientMixin
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         child: Column(
           children: <Widget>[
-            searchInput(),
             listBox()
           ],
-        ),
-      ),
-    );
-  }
-  // 搜索框
-  Widget searchInput () {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.0),
-        // boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0,1.0), spreadRadius: 2.0, blurRadius: 2.0)],
-        color: Colors.white
-      ),
-      child: TextField(
-        controller: _nameController,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: Icon(Icons.search, color: Colors.black45,),
-          hintText: '查找'
         ),
       ),
     );
@@ -160,25 +141,15 @@ class _StationList extends State<StationList> with AutomaticKeepAliveClientMixin
               ],
             ),
           )
-          // actions: <Widget>[
-          //   FlatButton(
-          //     onPressed: () {Navigator.pop(context, 1);},
-          //     child: Text('编辑')
-          //   ),
-          //   FlatButton(
-          //     onPressed: () {Navigator.pop(context, 2);},
-          //     child: Text('删除', style: TextStyle(color: Colors.red),)
-          //   ),
-          // ],
         );
       }
     );
   }
   // 初始化电站列表
-  Future initList () async {
+  Future initList ([name]) async {
     currentPage = 1;
     isLoading = true;
-    var temp = await getList();
+    var temp = await getList(name);
     setState(() {
       plantList = temp as List;
     });
@@ -192,13 +163,13 @@ class _StationList extends State<StationList> with AutomaticKeepAliveClientMixin
     });
   }
   // 获取电站列表
-  getList () async {
+  getList ([name]) async {
     var res = await PlantApi.getPlantList({
       'currentPage': currentPage,
       'pageSize': pageSize,
       'condition': {
         'status': widget.status,
-        'name': _nameController.text
+        'name': name ?? ''
       }
     });
     if (null != res) {
