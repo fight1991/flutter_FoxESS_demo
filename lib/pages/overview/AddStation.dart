@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 import "package:hybridApp/dio/PlantApi.dart";
 
 class AddStation extends StatefulWidget {
@@ -15,6 +16,9 @@ class _AddStation extends State<AddStation> {
   List<Map<String, dynamic>> _deviceList = [{'sn': '009W2E31A6VA044'}];
   TextEditingController _addSnController = TextEditingController();
   Map<String, dynamic> _details = {}; 
+  List plantTypeList = [1, 2];
+  int plantTypeValue;
+  TextEditingController _plantTypeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var pageTitle = '新建电站';
@@ -36,22 +40,22 @@ class _AddStation extends State<AddStation> {
               ),
               onTap: () async{
                 // 提交电站信息
-                bool res = await PlantApi.newPlant({
-                  'devices': _deviceList,
-                  'details': _details,
-                  'timezone': '',
-                  'daylight': '',
-                  'agent': '',
-                  'position': {
-                    'format': 'dms',
-                    'x': '',
-                    'y': '',
-                    'pid': ''
-                  }
-                });
-                if (res) {
-                  Fluttertoast.showToast(msg: '创建成功');
-                }
+                // bool res = await PlantApi.newPlant({
+                //   'devices': _deviceList,
+                //   'details': _details,
+                //   'timezone': '',
+                //   'daylight': '',
+                //   'agent': '',
+                //   'position': {
+                //     'format': 'dms',
+                //     'x': '',
+                //     'y': '',
+                //     'pid': ''
+                //   }
+                // });
+                // if (res) {
+                //   Fluttertoast.showToast(msg: '创建成功');
+                // }
               },
             ),
           )
@@ -106,23 +110,25 @@ class _AddStation extends State<AddStation> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            formInfoItem('电站名称', 'name'),
-            formInfoItem('电站类型', 'type'),
-            formInfoItem('系统组件容量', 'systemCapacity'),
-            formInfoItem('国家/地区', 'country'),
-            formInfoItem('城市', 'city'),
-            formInfoItem('地址', 'address'),
-            formInfoItem('邮编', 'postcode'),
-            formInfoItem('代理商', 'agent'),
-            formInfoItem('时区', 'timezone'),
-            formInfoItem('夏令时时区', 'daylight'),
+            formItemInput('电站名称', 'name'),
+            formItemSelect('电站类型', 'type', _plantTypeController, plantTypeValue, (){
+              showPickerModal(context);
+            }),
+            formItemInput('系统组件容量', 'systemCapacity'),
+            formItemInput('国家/地区', 'country'),
+            formItemInput('城市', 'city'),
+            formItemInput('地址', 'address'),
+            formItemInput('邮编', 'postcode'),
+            formItemInput('代理商', 'agent'),
+            formItemInput('时区', 'timezone'),
+            formItemInput('夏令时时区', 'daylight'),
           ],
         ),
       ),
     );
   }
-  // 输入框
-  Widget formInfoItem (label, key) {
+  // 选择框
+  Widget formItemSelect (label, key, controller, value, [onTap]) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.0),
       child: Column(
@@ -143,6 +149,51 @@ class _AddStation extends State<AddStation> {
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: TextFormField(
             // textAlign: TextAlign.end,
+              readOnly: true,
+              controller: controller,
+              onTap: onTap,
+              decoration: InputDecoration(
+                isDense: true,
+                // 注意 prefix / prefixText获取焦点是才显示
+                // Text.rich(TextSpan(children: [
+                //   TextSpan(text: "*", style: TextStyle(color: Colors.red)),
+                //   TextSpan(text: "电站名称", style: TextStyle(color: Color(0xffA7B8CC)))
+                // ]))
+                border: InputBorder.none,
+              ),
+              initialValue: _details[key],
+              onSaved: (val){
+                _details[key] = value;
+              },
+            )
+          )
+        ]
+      ),
+    );
+  }
+  // 输入框
+  Widget formItemInput (label, key, [onTap]) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5.0),
+      child: Column(
+        children:[
+          Row(
+            children: <Widget>[
+              Text('*', style: TextStyle(color: Colors.red),),
+              Text(label,)
+            ],
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[400]),
+              borderRadius: BorderRadius.circular(4.0)
+            ),
+            height: 30.0,
+            margin: EdgeInsets.only(top: 4.0),
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: TextFormField(
+            // textAlign: TextAlign.end,
+              onTap: onTap,
               decoration: InputDecoration(
                 isDense: true,
                 // 注意 prefix / prefixText获取焦点是才显示
@@ -274,4 +325,24 @@ class _AddStation extends State<AddStation> {
       }
     );
   }
+  // 电站类型picker
+   showPickerModal(BuildContext context) {
+      new Picker(
+        confirmText: '确定',
+        cancelText: '取消',
+        adapter: PickerDataAdapter<String>(pickerdata: ['光伏电站','储能电站']),
+        changeToFirst: true,
+        itemExtent: 50.0,
+        hideHeader: false,
+        onConfirm: (Picker picker, List value) {
+          print(value[0].toString());
+          print(picker.adapter.text);
+          var index = value[0];
+          setState(() {
+            plantTypeValue = plantTypeList[index];
+            _plantTypeController.text = picker.adapter.text[0];
+          });
+        }
+      ).showModal(this.context); //_scaffoldKey.currentState);
+    }
 }
