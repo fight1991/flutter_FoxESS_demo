@@ -24,7 +24,7 @@ class DioInit {
     //Fiddler抓包设置代理
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client){
       client.findProxy = (url){
-        return "PROXY 192.168.10.57:8866";
+        return "PROXY 192.168.10.47:8866";
       };
       //抓Https包设置
       client.badCertificateCallback =

@@ -63,13 +63,13 @@ class PlantApi {
     return resp;
   }
   // 创建电站
-  static Future<dynamic> newPlant(data) async {
+  static Future<bool> newPlant(data) async {
     var res = await Fetch.post(
       path: '/c/v0/plant/create',
       data: data
     );
     var resp = json.decode(res.toString());
-    return resp;
+    return resp['errno'] == 0;
   }
   // 编辑电站
   static Future<dynamic> plantEdit(data) async {

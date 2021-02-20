@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
+import 'package:fluttertoast/fluttertoast.dart';
+import "package:hybridApp/dio/PlantApi.dart";
 
 class AddStation extends StatefulWidget {
   final opType;
@@ -9,8 +12,9 @@ class AddStation extends StatefulWidget {
 
 class _AddStation extends State<AddStation> {
   GlobalKey _formKey = new GlobalKey<FormState>();
-  List<String> _deviceList = ['1212', '123334'];
+  List<Map<String, dynamic>> _deviceList = [{'sn': '009W2E31A6VA044'}];
   TextEditingController _addSnController = TextEditingController();
+  Map<String, dynamic> _details = {}; 
   @override
   Widget build(BuildContext context) {
     var pageTitle = '新建电站';
@@ -30,17 +34,35 @@ class _AddStation extends State<AddStation> {
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
                 child: Text('确定', style: TextStyle(fontSize: 20.0),)
               ),
-              onTap: () {},
+              onTap: () async{
+                // 提交电站信息
+                bool res = await PlantApi.newPlant({
+                  'devices': _deviceList,
+                  'details': _details,
+                  'timezone': '',
+                  'daylight': '',
+                  'agent': '',
+                  'position': {
+                    'format': 'dms',
+                    'x': '',
+                    'y': '',
+                    'pid': ''
+                  }
+                });
+                if (res) {
+                  Fluttertoast.showToast(msg: '创建成功');
+                }
+              },
             ),
           )
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        color: Colors.grey[200],
         child: ListView(
           children: <Widget>[
             stationBaseTitle('电站基础信息'),
-            formInfo(_formKey),
+            formInfo(),
             deviceListTile('设备列表'),
             deviceContainer(_deviceList),
           ]
@@ -51,9 +73,10 @@ class _AddStation extends State<AddStation> {
   // 电站基本信息头部
   Widget stationBaseTitle (title) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color:Color(0xffA7B8CC)))
+        border: Border(bottom: BorderSide(color:Colors.grey[400])),
+        color: Colors.white
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,56 +98,78 @@ class _AddStation extends State<AddStation> {
     );
   }
   // 表单信息
-  Widget formInfo (GlobalKey formkey) {
+  Widget formInfo () {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+      color: Colors.white,
       child: Form(
-        key: formkey,
+        key: _formKey,
         child: Column(
           children: <Widget>[
-            formInfoItem('电站名称'),
-            formInfoItem('电站类型'),
-            formInfoItem('国家/地区'),
-            formInfoItem('城市'),
-            formInfoItem('地址'),
-            formInfoItem('电价'),
-            formInfoItem('系统容量'),
-            formInfoItem('邮编'),
-            formInfoItem('代理商'),
-            formInfoItem('时区'),
-            formInfoItem('夏令时时区'),
+            formInfoItem('电站名称', 'name'),
+            formInfoItem('电站类型', 'type'),
+            formInfoItem('系统组件容量', 'systemCapacity'),
+            formInfoItem('国家/地区', 'country'),
+            formInfoItem('城市', 'city'),
+            formInfoItem('地址', 'address'),
+            formInfoItem('邮编', 'postcode'),
+            formInfoItem('代理商', 'agent'),
+            formInfoItem('时区', 'timezone'),
+            formInfoItem('夏令时时区', 'daylight'),
           ],
         ),
       ),
     );
   }
-  Widget formInfoItem (label) {
-    return TextFormField(
-      textAlign: TextAlign.end,
-      decoration: InputDecoration(
-        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0xffA7B8CC))),
-        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0xff3390ff))),
-        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-        // 注意 prefix / prefixText获取焦点是才显示
-        // Text.rich(TextSpan(children: [
-        //   TextSpan(text: "*", style: TextStyle(color: Colors.red)),
-        //   TextSpan(text: "电站名称", style: TextStyle(color: Color(0xffA7B8CC)))
-        // ]))
-        prefixIcon: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text('*', style: TextStyle(color: Colors.red),),
-            Text(label, style: TextStyle(color: Color(0xffA7B8CC)),)
-          ],
-        )
+  // 输入框
+  Widget formInfoItem (label, key) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5.0),
+      child: Column(
+        children:[
+          Row(
+            children: <Widget>[
+              Text('*', style: TextStyle(color: Colors.red),),
+              Text(label,)
+            ],
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[400]),
+              borderRadius: BorderRadius.circular(4.0)
+            ),
+            height: 30.0,
+            margin: EdgeInsets.only(top: 4.0),
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: TextFormField(
+            // textAlign: TextAlign.end,
+              decoration: InputDecoration(
+                isDense: true,
+                // 注意 prefix / prefixText获取焦点是才显示
+                // Text.rich(TextSpan(children: [
+                //   TextSpan(text: "*", style: TextStyle(color: Colors.red)),
+                //   TextSpan(text: "电站名称", style: TextStyle(color: Color(0xffA7B8CC)))
+                // ]))
+                border: InputBorder.none,
+              ),
+              initialValue: _details[key],
+              onSaved: (val){
+                _details[key] = val;
+              },
+            )
+          )
+        ]
       ),
     );
   }
   // 电站设备列表头部区域
   Widget deviceListTile (title) {
     return Container(
-      padding: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      margin: EdgeInsets.only(top: 15.0),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Color(0xffA7B8CC)))
+        border: Border(bottom: BorderSide(color: Color(0xffA7B8CC))),
+        color: Colors.white
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,7 +199,7 @@ class _AddStation extends State<AddStation> {
                   if (isAdd) {
                     print('确认添加');
                     setState(() {
-                      _deviceList.add(_addSnController.text);
+                      _deviceList.add({'sn':_addSnController.text});
                     });
                   } else {
                     print('取消添加');
@@ -172,27 +217,29 @@ class _AddStation extends State<AddStation> {
     );
   }
   // 设备列表容器
-  Widget deviceContainer(List<String> list) {
+  Widget deviceContainer(List<Map<String,dynamic>> list) {
     return Column(
       children: list.map((i) => deviceListItem(i)).toList()
     );
   }
   // 设备列表子项
-  Widget deviceListItem (String sn) {
+  Widget deviceListItem (Map<String,dynamic> snObj) {
     return Container(
       margin: EdgeInsets.only(bottom: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Color(0xffA7B8CC)))
+        border: Border(bottom: BorderSide(color: Color(0xffA7B8CC))),
+        color: Colors.white
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text('SN: $sn'),
+          Text(snObj['sn'].toString()),
           IconButton(
             icon: Icon(Icons.delete_outline, color: Colors.grey[600],),
             onPressed: (){
               setState(() {
-                _deviceList.remove(sn);
+                _deviceList.remove(snObj);
               });
             },
           )
